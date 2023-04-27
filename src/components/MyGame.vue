@@ -50,13 +50,60 @@
      <div class="modal-outfit">
          <div class="modal-close-outfit">X</div>
          <div class="modal-content-outfit">
-             <h2>Choose your outfit</h2>
-             <p>Welcome to your closet!</p>
-             <a href="https://www.instagram.com/">Buy in real life!</a>
-             <button class="AV1-outfit">Buy on game</button>
-         </div>
-     </div>
- </div>
+
+            <h2 id="titre-cyo">Choose your outfit</h2>
+            <img id="current-outfit" scr="./image/newpose_manche.png">
+            <div id="choose">
+
+                <div id="out-un">
+                    <img class="outimg" src="./image/horizontal/horizontal_pose_manche.png">
+                    <button class="wto" id="manche">Wear</button>
+                </div>
+=
+                <div id="out-deux">
+                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_fleur_blanc.png">
+                    <button class="wto" id="fleur_blanc">Wear</button>
+                </div>
+
+                <div id="out-trois">
+                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_fleur_bleu.png">
+                    <button class="wto" id="fleur_bleu">Wear</button>
+                </div>
+
+                <div id="out-quatre">
+                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_long_blanc.png">
+                    <button class="wto" id="long_blanc">Wear</button>
+                </div>
+
+                <div id="out-cinq">
+                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_long_marron.png">
+                    <button class="wto" id="long_marron">Wear</button>
+                </div>
+
+                <div id="out-six">
+                    <img class="img" src="./image/horizontal/horizontal_pose_manche_bob.png">
+                    <button class="wto" id="bob">Wear</button>
+                </div>
+                <div id="out-sept">
+                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_fleur_blanc_bob.png">
+                    <button class="wto" id="bob">Wear</button>
+                </div>
+                <div id="out-huit">
+                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_fleur_bleu_bob.png">
+                    <button class="wto" id="bob">Wear</button>
+                </div>
+                <div id="out-neuf">
+                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_blanc_bob.png">
+                    <button class="wto" id="bob">Wear</button>
+                </div>
+                <div id="out-dix">
+                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_marron_bob.png">
+                    <button class="wto" id="bob">Wear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 </template>
@@ -256,24 +303,18 @@ button:focus-visible{
   display: none;
 }
 .modal-outfit {
-  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
-  max-width: 600px;
+  max-width: 800px;
   width: 100%;
-  background: wheat;
+  background: rgb(183, 194, 207);
   padding: 20px;
-  margin: 35vh auto;
+  margin: auto;
+  margin-top: 20px;
+  height: 600px;
   border-radius: 5px;
   position: relative;
 }
-.modal-outfit a {
-  text-decoration: none;
-  background: crimson;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  margin: 10px;
-}
+
 .modal-close-outfit {
   color: red;
   border: 1px solid black;
@@ -284,23 +325,119 @@ button:focus-visible{
   width: 20px;
   border-radius: 5px;
 }
-/*
-button {
-  background: crimson;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  margin: 10px auto;
-  cursor: pointer;
+
+.modal-content-outfit{
+    display: grid;
+    grid-template-rows: 1fr 6fr;
+    grid-template-columns: 1fr 2fr ;
+    gap: 10px;
 }
 
-.AV1-outfit {
-  background: crimson;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  margin: 10px auto;
-  cursor: pointer;
-  }
-  */
+#choose{
+    grid-column: 1;
+    grid-row: 1/3;
+    display: grid;
+    grid-template-rows: repeat(10,145px);
+    overflow-y: auto;
+    height: 580px;
+}
+
+#out-un{
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+#out-deux{
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+#out-trois{
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+#out-quatre{
+    grid-row: 4;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+#out-cinq{
+    grid-row: 5;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+#out-six{
+    grid-row: 6;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+#out-sept{
+    grid-row: 7;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+
+#out-huit{
+    grid-row: 8;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+#out-neuf{
+    grid-row: 9;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+#out-dix{
+    grid-row: 10;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+.outimg{
+  grid-column: 1;
+  margin:auto;
+  width: 150px;
+}
+
+
+#titre-cyo{
+    grid-row:1;
+    grid-column:2;
+    font-size:25px;
+    height: 30px;
+}
+
+.wto{
+    grid-column:2;
+    margin:auto;
+}
+
+#current-outfit{
+    grid-column: 2;
+    grid-row: 2;
+    width :300px;
+    margin :auto;
+   
+}
+
 </style>
