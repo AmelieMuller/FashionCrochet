@@ -51,54 +51,54 @@
          <div class="modal-close-outfit">X</div>
          <div class="modal-content-outfit">
 
-            <h2 id="titre-cyo">Choose your outfit</h2>
-            <img id="current-outfit" scr="./image/newpose_manche.png">
+            <h2 id="titre-cyo">Choose your outfit !</h2>
+            <div id="current-outfit"><img id="imgoutfit" src="./image/outfit/manche.png"></div>
             <div id="choose">
 
                 <div id="out-un">
-                    <img class="outimg" src="./image/horizontal/horizontal_pose_manche.png">
-                    <button class="wto" id="manche">Wear</button>
+                    <img class="outimg" src="./image/horizontal/manche.png">
+                    <button class="wto" id="./image/horizontal/manche.png">Wear</button>
                 </div>
 =
                 <div id="out-deux">
-                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_fleur_blanc.png">
-                    <button class="wto" id="fleur_blanc">Wear</button>
+                    <img class="outimg" src="./image/horizontal/fleur_blanc.png">
+                    <button class="wto" id="./image/horizontal/fleur_blanc.png">Wear</button>
                 </div>
 
                 <div id="out-trois">
-                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_fleur_bleu.png">
-                    <button class="wto" id="fleur_bleu">Wear</button>
+                    <img class="outimg" src="./image/horizontal/fleur_bleu.png">
+                    <button class="wto" id="./image/horizontal/fleur_bleu.png">Wear</button>
                 </div>
 
                 <div id="out-quatre">
-                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_long_blanc.png">
-                    <button class="wto" id="long_blanc">Wear</button>
+                    <img class="outimg" src="./image/horizontal/long_blanc.png">
+                    <button class="wto" id="./image/horizontal/long_blanc.png">Wear</button>
                 </div>
 
                 <div id="out-cinq">
-                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_long_marron.png">
-                    <button class="wto" id="long_marron">Wear</button>
+                    <img class="outimg" src="./image/horizontal/long_marron.png">
+                    <button class="wto" id="./image/horizontal/long_marron.png">Wear</button>
                 </div>
 
                 <div id="out-six">
-                    <img class="img" src="./image/horizontal/horizontal_pose_manche_bob.png">
-                    <button class="wto" id="bob">Wear</button>
+                    <img class="outimg" src="./image/horizontal/manche_bob.png">
+                    <button class="wto" id="./image/horizontal/manche_bob.png">Wear</button>
                 </div>
                 <div id="out-sept">
-                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_fleur_blanc_bob.png">
-                    <button class="wto" id="bob">Wear</button>
+                    <img class="outimg" src="./image/horizontal/fleur_blanc_bob.png">
+                    <button class="wto" id="./image/horizontal/fleur_blanc_bob.png">Wear</button>
                 </div>
                 <div id="out-huit">
-                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_fleur_bleu_bob.png">
-                    <button class="wto" id="bob">Wear</button>
+                    <img class="outimg" src="./image/horizontal/fleur_bleu_bob.png">
+                    <button class="wto" id="./image/horizontal/fleur_bleu_bob.png">Wear</button>
                 </div>
                 <div id="out-neuf">
-                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_blanc_bob.png">
-                    <button class="wto" id="bob">Wear</button>
+                    <img class="outimg" src="./image/horizontal/long_blanc_bob.png">
+                    <button class="wto" id="./image/horizontal/long_blanc_bob.png">Wear</button>
                 </div>
                 <div id="out-dix">
-                    <img class="outimg" src="./image/horizontal/horizontal_pose_top_marron_bob.png">
-                    <button class="wto" id="bob">Wear</button>
+                    <img class="outimg" src="./image/horizontal/long_marron_bob.png">
+                    <button class="wto" id="./image/horizontal/long_marron_bob.png">Wear</button>
                 </div>
             </div>
         </div>
@@ -193,7 +193,7 @@ button{
     grid-gap: 8px;
     align-items: center;
     background-color: rgb(197, 34, 66);
-    color: rgb(250, 248, 248);
+    color: white;
     border: 1px solid #000;
     border-radius: 4px;
     cursor: pointer;
@@ -209,8 +209,8 @@ button{
     text-overflow: ellipsis;
     transition: all .14s ease-out;
     white-space: nowrap;
-    width: 70px;
-    height: 10px;
+    width: 75px;
+    height: 20px;
 }
 
 button:hover {
@@ -328,9 +328,10 @@ button:focus-visible{
 
 .modal-content-outfit{
     display: grid;
-    grid-template-rows: 1fr 6fr;
+    grid-template-rows: 1fr 7fr;
     grid-template-columns: 1fr 2fr ;
     gap: 10px;
+    z-index: 1;
 }
 
 #choose{
@@ -381,6 +382,7 @@ button:focus-visible{
     grid-row: 6;
     display: grid;
     grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
 
 }
 
@@ -435,9 +437,14 @@ button:focus-visible{
 #current-outfit{
     grid-column: 2;
     grid-row: 2;
-    width :300px;
-    margin :auto;
-   
+    margin-left:50px;
+    margin-right: 50px;
+    margin-bottom: auto;
+    margin-top:1px;
+      
 }
 
+#imgoutfit{
+    margin:auto;
+}
 </style>

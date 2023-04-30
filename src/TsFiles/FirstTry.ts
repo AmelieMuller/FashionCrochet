@@ -18,16 +18,11 @@ export class FirstTry {
   matcollect : StandardMaterial;
   avancement : int ;
   camera : FreeCamera ;
-  cloth1: Cloth;
-  cloth2: Cloth;
-  cloth3: Cloth; 
-  cloth4: Cloth;
-  cloth5: Cloth; 
-  cloth6: Cloth;
+  
 
   //attribut pour les vetements:
   wardrobe: Cloth[];
-  outfit: Cloth[];
+  currentoutfit: string;
 
   constructor(private canvas: HTMLCanvasElement) {
     this.engine = new Engine(this.canvas, true);
@@ -46,7 +41,7 @@ export class FirstTry {
     //Setup pour le cpt de Laine
     this.textBox = new SelectionPanel("textBox");
     this.text = new TextBlock();
-    this.cptLaine=0;
+    this.cptLaine=10;
     this.mouton1 = true;
     this.available1 = "Collect your yarn !";
     this.timing = 0 ;
@@ -65,13 +60,9 @@ export class FirstTry {
 
     //pour les vetements:
     this.wardrobe = [];
-    this.outfit = [];
-    this.cloth1 = new Cloth("manche", 7);
-    this.cloth2 = new Cloth("bob", 3);
-    this.cloth3 = new Cloth("fleur_bleue", 6);
-    this.cloth4 = new Cloth("fleur_blanc", 6);
-    this.cloth5 = new Cloth("long_blanc", 6);
-    this.cloth6 = new Cloth("long_bleu", 6);
+    this.currentoutfit = "";
+    
+    
 
 
     //this.CreateCutScene();
@@ -286,9 +277,55 @@ export class FirstTry {
         (document.querySelector("#long_marron") as HTMLButtonElement)!.addEventListener("click",() => buy("long_marron",self));
         (document.querySelector("#bob") as HTMLButtonElement)!.addEventListener("click",() => buy("bob", self));
       
+        document.getElementById("./image/horizontal/manche.png")!.addEventListener("click", ()=>wear("manche"));
+        document.getElementById("./image/horizontal/manche_bob.png")!.addEventListener("click", ()=>wear("manche_bob"));
+        document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", ()=>wear("long_blanc"));
+        document.getElementById("./image/horizontal/fleur_blanc.png")!.addEventListener("click", ()=>wear("fleur_blanc"));
+        document.getElementById("./image/horizontal/fleur_blanc_bob.png")!.addEventListener("click", ()=>wear("fleur_blanc_bob"));
+        document.getElementById("./image/horizontal/fleur_bleu.png")!.addEventListener("click", ()=>wear("fleur_bleu"));
+        document.getElementById("./image/horizontal/fleur_bleu_bob.png")!.addEventListener("click", ()=>wear("fleur_bleu_bob"));
+        document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", ()=>wear("long_blanc"));
+        document.getElementById("./image/horizontal/long_marron_bob.png")!.addEventListener("click", ()=>wear("long_marron_bob"));
+        document.getElementById("./image/horizontal/long_marron.png")!.addEventListener("click", ()=>wear("long_marron"));
+
+
       function hide() {
           (document.querySelector(".modal-wrapper") as HTMLDivElement).style.display = "none";  //Enlève la page shop
           }
+
+
+          function wear(id:string){
+            const outfit = [];
+            const clothes = ["bob", "manche", "fleur_blanc", "fleur_bleu", "long_blanc", "long_marron"];
+            for(let i=0; i<clothes.length; i++){
+              if(id.includes(clothes[i])){
+                outfit.push(clothes[i]);
+                
+              }
+            }
+
+            let wearable = true;
+            for(let i=0; i<outfit.length; i++){
+              if(isOwned(outfit[i])==false){
+                wearable = false;
+            
+              }
+            }
+    
+            if(wearable == true){
+              alert("you are wearing"+id);
+              self.currentoutfit = "./image/outfit/"+id+".png";
+              console.log(self.currentoutfit);
+              //document.getElementById("img-outfit")!.removeAttribute('src');
+              document.getElementById("imgoutfit")!.setAttribute('src',self.currentoutfit );
+              console.log(document.getElementById("imgoutfit")!.getAttribute("src"));
+            }
+            else{
+              alert("You dont own that outfit for the moment :(");
+            }
+          }
+
+          
       function buy(name: string, self: FirstTry){
         if(isOwned(name)==true){
           alert("You already own "+name);
@@ -322,6 +359,7 @@ export class FirstTry {
             return true;
           }
         }
+        return false;
       }
     }
     }
@@ -348,20 +386,62 @@ export class FirstTry {
     ClickOutfit(self : FirstTry):void{
       (document.querySelector(".modal-wrapper-outfit") as HTMLDivElement).style.display = "block";  //AFFICHE LA PAGE SHOP
       (document.querySelector(".modal-close-outfit") as HTMLDivElement).addEventListener("click", hide);  //Clique de la croix ?
-      /*
-      (document.querySelector(".modal-close-outfit") as HTMLDivElement).addEventListener("click", hide); 
-      (document.querySelector(".modal-close-outfit") as HTMLDivElement).addEventListener("click", hide);
-      (document.querySelector(".modal-close-outfit") as HTMLDivElement).addEventListener("click", hide);
+      
+      
+     /*
+      document.getElementById("./image/horizontal/manche.png")!.addEventListener("click", ()=>wear("manche"));
+      document.getElementById("./image/horizontal/manche_bob.png")!.addEventListener("click", ()=>wear("manche_bob"));
+      document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", ()=>wear("long_blanc"));
+      document.getElementById("./image/horizontal/fleur_blanc.png")!.addEventListener("click", ()=>wear("fleur_blanc"));
+      document.getElementById("./image/horizontal/fleur_blanc_bob.png")!.addEventListener("click", ()=>wear("fleur_blanc_bob"));
+      document.getElementById("./image/horizontal/fleur_bleu.png")!.addEventListener("click", ()=>wear("fleur_bleu"));
+      document.getElementById("./image/horizontal/fleur_bleu_bob.png")!.addEventListener("click", ()=>wear("fleur_bleu_bob"));
+      document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", ()=>wear("long_blanc"));
+      document.getElementById("./image/horizontal/long_marron_bob.png")!.addEventListener("click", ()=>wear("long_marron_bob"));
+      document.getElementById("./image/horizontal/long_marron.png")!.addEventListener("click", ()=>wear("long_marron"));
       */
+
       function hide() {
           (document.querySelector(".modal-wrapper-outfit") as HTMLDivElement).style.display = "none";  //Enlève la page shop
-          }
-      /*
-      function wear(){
-
       }
-      */
+
+
+
+      function isOwned(name: string){
+        for(const c of self.wardrobe){
+          if(c.name==name){
+            return true;
+          }
+        }
+        return false;
+      }
+
+      function wear(id:string){
+        const outfit = [];
+        const clothes = ["bob", "manche", "fleur_blanc", "fleur_bleu", "long_blanc", "long_marron"];
+        for(let i=0; i<clothes.length; i++){
+          if(id.includes(clothes[i])){
+            outfit.push(clothes[i]);
+          }
+        }
+        let wearable = true;
+        for(const c in outfit){
+          if(isOwned(c)==false){
+            wearable = false;
+            alert("You dont own that outfit for the moment :(");
+            break;
+          }
+        }
+
+        if(wearable == true){
+          alert("you are wearing"+id);
+          const link = "./image/outfit/"+id+".png";
+          document.getElementById("imgoutfit")!.setAttribute("scr", link);
+        }
+      }
+
     }
+
     CreateCutScene(self : FirstTry):void{
       const camKeys = [];
       console.log("Dans la methode",self);
