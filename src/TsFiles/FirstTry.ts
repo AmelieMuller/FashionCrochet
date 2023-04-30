@@ -293,39 +293,36 @@ export class FirstTry {
           (document.querySelector(".modal-wrapper") as HTMLDivElement).style.display = "none";  //Enlève la page shop
           }
 
+      // fonction pour changer d'outfit 
 
-          function wear(id:string){
-            const outfit = [];
-            const clothes = ["bob", "manche", "fleur_blanc", "fleur_bleu", "long_blanc", "long_marron"];
-            for(let i=0; i<clothes.length; i++){
-              if(id.includes(clothes[i])){
-                outfit.push(clothes[i]);
-                
-              }
-            }
-
-            let wearable = true;
-            for(let i=0; i<outfit.length; i++){
-              if(isOwned(outfit[i])==false){
-                wearable = false;
-            
-              }
-            }
-    
-            if(wearable == true){
-              alert("you are wearing"+id);
-              self.currentoutfit = "./image/outfit/"+id+".png";
-              console.log(self.currentoutfit);
-              //document.getElementById("img-outfit")!.removeAttribute('src');
-              document.getElementById("imgoutfit")!.setAttribute('src',self.currentoutfit );
-              console.log(document.getElementById("imgoutfit")!.getAttribute("src"));
-            }
-            else{
-              alert("You dont own that outfit for the moment :(");
-            }
+      function wear(id:string){
+        const outfit = [];
+        const clothes = ["bob", "manche", "fleur_blanc", "fleur_bleu", "long_blanc", "long_marron"];
+        for(let i=0; i<clothes.length; i++){
+          if(id.includes(clothes[i])){
+            outfit.push(clothes[i]);
           }
+        }
+        let wearable = true;
+        for(let i=0; i<outfit.length; i++){
+          if(isOwned(outfit[i])==false){
+            wearable = false;
+          }
+        }
+        if(wearable == true){
+          //alert("you are wearing"+id);
+          self.currentoutfit = "./outfit/"+id+".png";
+          console.log(self.currentoutfit);
+          document.getElementById("imgoutfit")!.setAttribute('src',self.currentoutfit );
+          console.log(document.getElementById("imgoutfit")!.getAttribute("src"));
+        }
+        else{
+          alert("You dont own that outfit for the moment :(");
+        }
+      }
 
-          
+      //fonction pour obtenir un vetement
+
       function buy(name: string, self: FirstTry){
         if(isOwned(name)==true){
           alert("You already own "+name);
@@ -352,7 +349,7 @@ export class FirstTry {
       
       }   
     
-
+      //fonction pour voir si on possède un habit
       function isOwned(name: string){
         for(const c of self.wardrobe){
           if(c.name==name){
