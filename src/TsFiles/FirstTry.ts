@@ -8,6 +8,7 @@ export class FirstTry {
   scene: Scene;
   engine: Engine;
   cptLaine : int;
+  cptFashion: int;
   textBox : SelectionPanel;
   text : TextBlock ;
   mouton1 : boolean ;
@@ -23,6 +24,7 @@ export class FirstTry {
   //attribut pour les vetements:
   wardrobe: Cloth[];
   currentoutfit: string;
+  alreadyRunwayOutfit :[];
 
   constructor(private canvas: HTMLCanvasElement) {
     this.engine = new Engine(this.canvas, true);
@@ -61,8 +63,8 @@ export class FirstTry {
     //pour les vetements:
     this.wardrobe = [];
     this.currentoutfit = "";
-    
-    
+    this.alreadyRunwayOutfit = [];
+    this.cptFashion = 0;
 
 
     //this.CreateCutScene();
@@ -269,33 +271,35 @@ export class FirstTry {
       function shop() {
         (document.querySelector(".modal-wrapper") as HTMLDivElement).style.display = "block";  //AFFICHE LA PAGE SHOP
         (document.querySelector(".modal-close") as HTMLDivElement).addEventListener("click", hide);  //Clique de la croix ?
-        (document.getElementById("manche") as HTMLButtonElement)!.addEventListener("click",() => buy("manche",self));  //buy cloth1
 
-        (document.querySelector("#fleur_bleu") as HTMLButtonElement)!.addEventListener("click",() => buy("fleur_bleu",self));
-        (document.querySelector("#fleur_blanc") as HTMLButtonElement)!.addEventListener("click",() => buy("fleur_blanc",self));
-        (document.querySelector("#long_blanc") as HTMLButtonElement)!.addEventListener("click",() => buy("long_blanc",self));
-        (document.querySelector("#long_marron") as HTMLButtonElement)!.addEventListener("click",() => buy("long_marron",self));
-        (document.querySelector("#bob") as HTMLButtonElement)!.addEventListener("click",() => buy("bob", self));
+
+        (document.getElementById("manche") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("manche",self,evt));  //buy cloth1
+        (document.querySelector("#fleur_bleu") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("fleur_bleu",self,evt));
+        (document.querySelector("#fleur_blanc") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("fleur_blanc",self,evt));
+        (document.querySelector("#long_blanc") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("long_blanc",self,evt));
+        (document.querySelector("#long_marron") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("long_marron",self,evt));
+        (document.querySelector("#bob") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("bob", self,evt));
       
-        document.getElementById("./image/horizontal/manche.png")!.addEventListener("click", ()=>wear("manche"));
-        document.getElementById("./image/horizontal/manche_bob.png")!.addEventListener("click", ()=>wear("manche_bob"));
-        document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", ()=>wear("long_blanc"));
-        document.getElementById("./image/horizontal/fleur_blanc.png")!.addEventListener("click", ()=>wear("fleur_blanc"));
-        document.getElementById("./image/horizontal/fleur_blanc_bob.png")!.addEventListener("click", ()=>wear("fleur_blanc_bob"));
-        document.getElementById("./image/horizontal/fleur_bleu.png")!.addEventListener("click", ()=>wear("fleur_bleu"));
-        document.getElementById("./image/horizontal/fleur_bleu_bob.png")!.addEventListener("click", ()=>wear("fleur_bleu_bob"));
-        document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", ()=>wear("long_blanc"));
-        document.getElementById("./image/horizontal/long_marron_bob.png")!.addEventListener("click", ()=>wear("long_marron_bob"));
-        document.getElementById("./image/horizontal/long_marron.png")!.addEventListener("click", ()=>wear("long_marron"));
+        document.getElementById("./image/horizontal/manche.png")!.addEventListener("click", (evt)=>wear("manche",evt));
+        document.getElementById("./image/horizontal/manche_bob.png")!.addEventListener("click", (evt)=>wear("manche_bob",evt));
+        document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", (evt)=>wear("long_blanc",evt));
+        document.getElementById("./image/horizontal/fleur_blanc.png")!.addEventListener("click", (evt)=>wear("fleur_blanc",evt));
+        document.getElementById("./image/horizontal/fleur_blanc_bob.png")!.addEventListener("click", (evt)=>wear("fleur_blanc_bob",evt));
+        document.getElementById("./image/horizontal/fleur_bleu.png")!.addEventListener("click", (evt)=>wear("fleur_bleu",evt));
+        document.getElementById("./image/horizontal/fleur_bleu_bob.png")!.addEventListener("click", (evt)=>wear("fleur_bleu_bob",evt));
+        document.getElementById("./image/horizontal/long_blanc_bob.png")!.addEventListener("click", (evt)=>wear("long_blanc_bob",evt));
+        document.getElementById("./image/horizontal/long_marron_bob.png")!.addEventListener("click", (evt)=>wear("long_marron_bob",evt));
+        document.getElementById("./image/horizontal/long_marron.png")!.addEventListener("click", (evt)=>wear("long_marron",evt));
+        document.getElementById("./image/horizontal/initial_bob.png")!.addEventListener("click", (evt)=>wear("bob",evt));
 
-
+        
       function hide() {
           (document.querySelector(".modal-wrapper") as HTMLDivElement).style.display = "none";  //Enlève la page shop
           }
 
       // fonction pour changer d'outfit 
 
-      function wear(id:string){
+      function wear(id:string,evt:Event){
         const outfit = [];
         const clothes = ["bob", "manche", "fleur_blanc", "fleur_bleu", "long_blanc", "long_marron"];
         for(let i=0; i<clothes.length; i++){
@@ -310,20 +314,20 @@ export class FirstTry {
           }
         }
         if(wearable == true){
-          //alert("you are wearing"+id);
           self.currentoutfit = "./outfit/"+id+".png";
           console.log(self.currentoutfit);
-          document.getElementById("imgoutfit")!.setAttribute('src',self.currentoutfit );
+          document.getElementById("imgoutfit")!.setAttribute('src', self.currentoutfit );
           console.log(document.getElementById("imgoutfit")!.getAttribute("src"));
         }
         else{
           alert("You dont own that outfit for the moment :(");
         }
+        evt.stopImmediatePropagation();
       }
 
       //fonction pour obtenir un vetement
 
-      function buy(name: string, self: FirstTry){
+      function buy(name: string, self: FirstTry,evt:Event){
         if(isOwned(name)==true){
           alert("You already own "+name);
         }
@@ -346,6 +350,7 @@ export class FirstTry {
              alert("You dont have enought wool, soory :(");
           }
         }
+        evt.stopImmediatePropagation();
       
       }   
     
@@ -380,66 +385,36 @@ export class FirstTry {
       advancedTexture2.addControl(button1);
       
     }
+
+
     ClickOutfit(self : FirstTry):void{
       (document.querySelector(".modal-wrapper-outfit") as HTMLDivElement).style.display = "block";  //AFFICHE LA PAGE SHOP
       (document.querySelector(".modal-close-outfit") as HTMLDivElement).addEventListener("click", hide);  //Clique de la croix ?
       
-      
-     /*
-      document.getElementById("./image/horizontal/manche.png")!.addEventListener("click", ()=>wear("manche"));
-      document.getElementById("./image/horizontal/manche_bob.png")!.addEventListener("click", ()=>wear("manche_bob"));
-      document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", ()=>wear("long_blanc"));
-      document.getElementById("./image/horizontal/fleur_blanc.png")!.addEventListener("click", ()=>wear("fleur_blanc"));
-      document.getElementById("./image/horizontal/fleur_blanc_bob.png")!.addEventListener("click", ()=>wear("fleur_blanc_bob"));
-      document.getElementById("./image/horizontal/fleur_bleu.png")!.addEventListener("click", ()=>wear("fleur_bleu"));
-      document.getElementById("./image/horizontal/fleur_bleu_bob.png")!.addEventListener("click", ()=>wear("fleur_bleu_bob"));
-      document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", ()=>wear("long_blanc"));
-      document.getElementById("./image/horizontal/long_marron_bob.png")!.addEventListener("click", ()=>wear("long_marron_bob"));
-      document.getElementById("./image/horizontal/long_marron.png")!.addEventListener("click", ()=>wear("long_marron"));
-      */
 
       function hide() {
           (document.querySelector(".modal-wrapper-outfit") as HTMLDivElement).style.display = "none";  //Enlève la page shop
       }
-
-
-
-      function isOwned(name: string){
-        for(const c of self.wardrobe){
-          if(c.name==name){
-            return true;
-          }
-        }
-        return false;
-      }
-
-      function wear(id:string){
-        const outfit = [];
-        const clothes = ["bob", "manche", "fleur_blanc", "fleur_bleu", "long_blanc", "long_marron"];
-        for(let i=0; i<clothes.length; i++){
-          if(id.includes(clothes[i])){
-            outfit.push(clothes[i]);
-          }
-        }
-        let wearable = true;
-        for(const c in outfit){
-          if(isOwned(c)==false){
-            wearable = false;
-            alert("You dont own that outfit for the moment :(");
-            break;
-          }
-        }
-
-        if(wearable == true){
-          alert("you are wearing"+id);
-          const link = "./image/outfit/"+id+".png";
-          document.getElementById("imgoutfit")!.setAttribute("scr", link);
-        }
-      }
-
     }
 
+
+
     CreateCutScene(self : FirstTry):void{
+
+      //check si outfit a deja été porté sur le runway
+      let alreadyWorn = false;
+      for(let i=0; i<=this.alreadyRunwayOutfit.length; i++){
+        if(this.alreadyRunwayOutfit[i]==this.currentoutfit){
+          alreadyWorn = true;
+        }
+      }
+      //si outfit n'a jamais été porté sur le runway: augmenter le conteur de fashion
+
+      if(alreadyWorn){
+        this.cptFashion+=1;
+      }
+
+      
       const camKeys = [];
       console.log("Dans la methode",self);
       const fps = 60;
@@ -467,6 +442,8 @@ export class FirstTry {
       timer.onTimerEndedObservable.add(() => self.SecondAnimation(self));
       timer.start(8* fps*18);
     }
+
+
     SecondAnimation(self : FirstTry){
       const fps = 60;
       const camKeys = [];
@@ -546,6 +523,7 @@ export class FirstTry {
       advancedTexture2.addControl(button1);
       console.log("Juste avant",this);
       button1.onPointerUpObservable.add(() => this.CreateCutScene(this));
+
       
       
     }

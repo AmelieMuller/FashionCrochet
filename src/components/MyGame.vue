@@ -52,14 +52,14 @@
          <div class="modal-content-outfit">
 
             <h2 id="titre-cyo">Choose your outfit !</h2>
-            <div id="current-outfit"><img id="imgoutfit" src="./image/outfit/manche.png"></div>
+            <div id="current-outfit"><img id="imgoutfit" src="./image/outfit/initial.png"></div>
             <div id="choose">
 
                 <div id="out-un">
                     <img class="outimg" src="./image/horizontal/manche.png">
                     <button class="wto" id="./image/horizontal/manche.png">Wear</button>
                 </div>
-=
+
                 <div id="out-deux">
                     <img class="outimg" src="./image/horizontal/fleur_blanc.png">
                     <button class="wto" id="./image/horizontal/fleur_blanc.png">Wear</button>
@@ -99,6 +99,11 @@
                 <div id="out-dix">
                     <img class="outimg" src="./image/horizontal/long_marron_bob.png">
                     <button class="wto" id="./image/horizontal/long_marron_bob.png">Wear</button>
+                </div>
+
+                <div id="out-onze">
+                    <img class="outimg" src="./image/horizontal/initial_bob.png">
+                    <button class="wto" id="./image/horizontal/initial_bob.png">Wear</button>
                 </div>
             </div>
         </div>
@@ -338,7 +343,7 @@ button:focus-visible{
     grid-column: 1;
     grid-row: 1/3;
     display: grid;
-    grid-template-rows: repeat(10,145px);
+    grid-template-rows: repeat(11,145px);
     overflow-y: auto;
     height: 580px;
 }
@@ -410,6 +415,13 @@ button:focus-visible{
 
 #out-dix{
     grid-row: 10;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+#out-onze{
+    grid-row: 11;
     display: grid;
     grid-template-columns: 2fr 1fr;
 
