@@ -1,6 +1,33 @@
 <template>
 
   <canvas></canvas>
+  <div id="fashion">
+    <div>
+      <img id ="etoile0" src="../../public/fashion/starBlack65.png" class = "etoile" alt="">
+      <img id ="etoile0Half" src="../../public/fashion/starHalf65.png" class = "etoileHalf" alt="">
+      <img id ="etoile0Obtenue" src="../../public/fashion/star65.png" class = "etoileObtenue" alt="">
+    </div>
+    <div>
+      <img id ="etoile1" src="../../public/fashion/starBlack65.png" class = "etoile" alt="">
+      <img id ="etoile1Half" src="../../public/fashion/starHalf65.png" class = "etoileHalf" alt="">
+      <img id ="etoile1Obtenue" src="../../public/fashion/star65.png" class = "etoileObtenue" alt="">
+    </div>
+    <div>
+      <img id ="etoile2" src="../../public/fashion/starBlack65.png" class = "etoile" alt="">
+      <img id ="etoile2Half" src="../../public/fashion/starHalf65.png" class = "etoileHalf" alt="">
+      <img id ="etoile2Obtenue" src="../../public/fashion/star65.png" class = "etoileObtenue" alt="">
+    </div>
+    <div>
+      <img id ="etoile3" src="../../public/fashion/starBlack65.png" class = "etoile" alt="">
+      <img id ="etoile3Half" src="../../public/fashion/starHalf65.png" class = "etoileHalf" alt="">
+      <img id ="etoile3Obtenue" src="../../public/fashion/star65.png" class = "etoileObtenue" alt="">
+    </div>
+    <div>
+      <img id ="etoile4" src="../../public/fashion/starBlack65.png" class = "etoile" alt="">
+      <img id ="etoile4Half" src="../../public/fashion/starHalf65.png" class = "etoileHalf" alt="">
+      <img id ="etoile4Obtenue" src="../../public/fashion/star65.png" class = "etoileObtenue" alt="">
+    </div>
+  </div>
   <div class="modal-wrapper">
      <div class="modal">
          <div class="modal-close">X</div>
@@ -116,6 +143,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { FirstTry} from '@/TsFiles/FirstTry' ;
+
+
 export default defineComponent({
   name: 'BabylonExamples',
   mounted(){
@@ -131,6 +160,29 @@ canvas {
   width:100% ;
   height:100% ;
 }
+
+
+  #fashion{
+    background: rgba(216, 93, 93, 0);
+    position: fixed;
+    bottom: 0%;
+    left : 35%;
+    height: 65px;
+    width: 325px;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr ;
+    border: 5px solid rgb(236, 240, 24);
+    border-radius: 20px;
+}
+.etoileObtenue{
+  display : none;
+}
+.etoileHald{
+  display:none;
+}
+
+
+
 .modal-wrapper {
   background: rgba(0, 0, 0, 0.508);
   position: fixed;
@@ -459,4 +511,8 @@ button:focus-visible{
 #imgoutfit{
     margin:auto;
 }
+
+
+
+
 </style>

@@ -8,23 +8,17 @@ export class FirstTry {
   scene: Scene;
   engine: Engine;
   cptLaine : int;
-  cptFashion: int;
   textBox : SelectionPanel;
   text : TextBlock ;
-  mouton1 : boolean ;
-  available1 : string ;
-  timing : int ;
   timersec : int ;
-  plane : Mesh;
   matcollect : StandardMaterial;
-  avancement : int ;
   camera : FreeCamera ;
+  cptFashion: int;
   
-
-  //attribut pour les vetements:
   wardrobe: Cloth[];
   currentoutfit: string;
-  alreadyRunwayOutfit :[];
+  alreadyRunwayOutfit :string[];
+
 
   constructor(private canvas: HTMLCanvasElement) {
     this.engine = new Engine(this.canvas, true);
@@ -43,32 +37,31 @@ export class FirstTry {
     //Setup pour le cpt de Laine
     this.textBox = new SelectionPanel("textBox");
     this.text = new TextBlock();
-    this.cptLaine=10;
-    this.mouton1 = true;
-    this.available1 = "Collect your yarn !";
-    this.timing = 0 ;
-    this.avancement = 1;
+    this.cptLaine=0;
     this.timersec = 5 ;
-    const f = new Vector4(0,0, 1 , 1);
-    this.plane = MeshBuilder.CreatePlane("plane", {frontUVs: f, backUVs: f, sideOrientation: Mesh.DOUBLESIDE});
     this.matcollect = new StandardMaterial("",this.scene);
     this.matcollect.diffuseTexture = new Texture("./textures/timer/collect.png");
-    
-
-    this.CreateCptLaine();
-    this.CreateMouton();
-    
-    this.CreatePersonnage();
 
     //pour les vetements:
     this.wardrobe = [];
     this.currentoutfit = "";
     this.alreadyRunwayOutfit = [];
     this.cptFashion = 0;
+    
 
+    this.CreateCptLaine();
+    this.CreateMouton(new Mouton("moutonGwen.glb"));
+    this.CreateMouton(new Mouton("moutonGwen2.glb"));
+    this.CreateMouton(new Mouton("moutonGwen3.glb"));
+    this.CreateMouton(new Mouton("moutonGwen4.glb"));
+    this.CreateMouton(new Mouton("moutonGwen5.glb"));
+    
+    this.CreatePersonnage();
 
     //this.CreateCutScene();
     this.CreateStartRunway();
+
+    this.CreateMamie();
 
     this.engine.runRenderLoop(() => {
       this.scene.render();
@@ -93,17 +86,17 @@ export class FirstTry {
     scene.collisionsEnabled=true;
 
 
-    this.CreateActions(this);
+  
 
     return scene;
   }
 
-  async CreateMouton(): Promise<void> {
+  async CreateMouton(mouton : Mouton): Promise<void> {
     
     const { meshes } = await SceneLoader.ImportMeshAsync(
       "",
       "./models/",
-      "moutonGwen.glb",
+      mouton.path,
       this.scene
     );
     //apply collisions to every mesh in the model
@@ -116,7 +109,7 @@ export class FirstTry {
       //Création de l'intéraction avec mouton
       mesh.actionManager = new ActionManager(this.scene);
       mesh.actionManager.registerAction(
-        new ExecuteCodeAction({trigger: ActionManager.OnPickTrigger},(evt) => this.Mouton1OnClick(this)));  //Quand on click sur la boule ca lance Mouton1OnClick
+        new ExecuteCodeAction({trigger: ActionManager.OnPickTrigger},(evt) => this.Mouton1OnClick(this,mouton)));  //Quand on click sur la boule ca lance Mouton1OnClick
 
     })
 
@@ -129,34 +122,34 @@ export class FirstTry {
     //const matcollect = new StandardMaterial("",this.scene);
     //matcollect.diffuseTexture = new Texture("./textures/timer/collect.png");   ////./textures/timer/collect.png
     //textures pour la barres qui augmente
-    const matbarre = new StandardMaterial("",this.scene);
-    matbarre.diffuseTexture = new Texture("./textures/timer/barre1.png");
+    //const matbarre = new StandardMaterial("",this.scene);             CES DEUX LIGNE ELLES SONT UTILS ??
+    //matbarre.diffuseTexture = new Texture("./textures/timer/barre1.png");
     
     
     //const f = new Vector4(0,0, 1 , 1); // front image = half the whole image along the width 
     //const b = new Vector4(1,0, 1, 1); // back image = second half along the width
     
     //const plane = MeshBuilder.CreatePlane("plane", {frontUVs: f, backUVs: f, sideOrientation: Mesh.DOUBLESIDE});
-    this.plane.parent = meshes[1];
-    this.plane.position.y = 2;
-    this.plane.scaling.x=4;
-    this.plane.scaling.y=1;
-    this.plane.rotate(new Vector3(0,1,0),-1.5708);
-    this.plane.material = this.matcollect;
+    mouton.plane.parent = meshes[1];
+    mouton.plane.position.y = 2;
+    mouton.plane.scaling.x=4;
+    mouton.plane.scaling.y=1;
+    mouton.plane.rotate(new Vector3(0,1,0),-1.5708);
+    mouton.plane.material = this.matcollect;
   }
 
-  Mouton1OnClick(self : FirstTry):void{
-    if (self.mouton1){
+  Mouton1OnClick(self : FirstTry, mouton : Mouton):void{
+    if (mouton.available){
       self.cptLaine+=1;
       self.text.text = "laine : "+self.cptLaine;
-      self.mouton1=false;
+      mouton.available=false;
       console.log("Juste avant timer");
       //button.textBlock!.text = "Please wait to collect your yarn";
-      const timer = new AdvancedTimer({timeout:1000,contextObservable: self.scene.onBeforeRenderObservable});  //Timer à 0 jsp pk mais j'ai pas vu de changements en fonctions des valeurs
-      timer.onTimerEndedObservable.add((evt) => self.Timer(self));
-      timer.onEachCountObservable.add((evt) => self.Waiting(self));
-      timer.start(this.timersec*1000); //La durée du timer
-      
+      const timer = new AdvancedTimer({timeout:10,contextObservable: self.scene.onBeforeRenderObservable});  //Timer à 0 jsp pk mais j'ai pas vu de changements en fonctions des valeurs
+      timer.onTimerEndedObservable.add((evt) => self.Timer(self,mouton));
+      timer.onEachCountObservable.add((evt) => self.Waiting(self,mouton));   /// CA FAIT UN PTN DE NB DE FOIS ALEATOIRE
+      //timer.start(self.timersec*1000); //La durée du timer
+      timer.start(5000); //La durée du timer
     }
     self.textBox.addControl(self.text);
 
@@ -178,27 +171,28 @@ export class FirstTry {
     advancedTexture.addControl(this.textBox);
   }
 
-  Timer(self : FirstTry) : void{
-    self.mouton1=true;
+  Timer(self : FirstTry,mouton : Mouton) : void{
+    mouton.available=true;
     //button.textBlock!.text = this.available1 ;
-    self.plane.material = self.matcollect ;
-    self.timing=0;
-    self.avancement = 1 ;
+    mouton.plane.material = self.matcollect ;
+    mouton.timer=0;
+    mouton.avancement = 1 ;
   }
 
-  Waiting(self : FirstTry) : void{
-    self.mouton1=false;
-    if (self.timing%(Math.trunc(self.timersec*1000/340))==0&&self.avancement<=17){
+  Waiting(self : FirstTry,mouton : Mouton) : void{
+    mouton.available=false;
+    console.log("le Timer ???");
+    if (mouton.timer%(Math.trunc(self.timersec*1000/340))==0&&mouton.avancement<=17){
       const matbarre = new StandardMaterial("",this.scene);
-      matbarre.diffuseTexture = new Texture("./textures/timer/barre"+self.avancement+".png");
+      matbarre.diffuseTexture = new Texture("./textures/timer/barre"+mouton.avancement+".png");
       // mettre self.timersec/340 en entier 
-      self.plane.material = matbarre ;
+      mouton.plane.material = matbarre ;
       //console.log("la valeur : "+Math.trunc(self.timersec*1000/340));
-      self.avancement+=1;
+      mouton.avancement+=1;
       //matbarre.diffuseTexture = new Texture("./textures/timer/barre1.png");
       //button.textBlock!.text = `Wait ${self.timersec - (self.timing/(self.timersec*10))} seconds to collect your next yarn` ;
     }
-    self.timing+=1;
+    mouton.timer+=1;
      
   }
 
@@ -246,40 +240,31 @@ export class FirstTry {
     
 
     }
-    /*
-    CreateObjects():void {
-      const ball = MeshBuilder.CreateSphere("ball",{diameter : 1} , this.scene);
-      /*ball.physicsImpostor = new PhysicsImpostor(
-          ball,
-          PhysicsImpostor.SphereImpostor,
-          { mass: 1, restitution: 0.8 }
-        );
-        
-      ball.position=new Vector3(0,1,1);
-      this.CreateActions(ball);
+  
 
-  }
-  */
-
-  CreateActions(self : FirstTry): void {
-    const ball = MeshBuilder.CreateSphere("ball",{diameter : 1} , this.scene);
-    ball.position=new Vector3(0,1,1);
-      ball.actionManager = new ActionManager(this.scene);
-      ball.actionManager.registerAction(
-          new ExecuteCodeAction({trigger: ActionManager.OnPickTrigger}, shop)
-          );
-      function shop() {
-        (document.querySelector(".modal-wrapper") as HTMLDivElement).style.display = "block";  //AFFICHE LA PAGE SHOP
-        (document.querySelector(".modal-close") as HTMLDivElement).addEventListener("click", hide);  //Clique de la croix ?
-
-
-        (document.getElementById("manche") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("manche",self,evt));  //buy cloth1
-        (document.querySelector("#fleur_bleu") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("fleur_bleu",self,evt));
-        (document.querySelector("#fleur_blanc") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("fleur_blanc",self,evt));
-        (document.querySelector("#long_blanc") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("long_blanc",self,evt));
-        (document.querySelector("#long_marron") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("long_marron",self,evt));
-        (document.querySelector("#bob") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("bob", self,evt));
+    CreateChooseYourOutfit():void {
+      const plane = Mesh.CreatePlane("plane",3,this.scene); //plane, le plan 2D sur lequel on va cliquer, 2=size
+      plane.position.y = 2;
+      plane.position.x = -45;
+      plane.position.z = 28;
+      plane.rotate(new Vector3(0,1,0),-1.5708);
+  
+      const advancedTexture2 = AdvancedDynamicTexture.CreateForMesh(plane);
+  
+      const button1 = Button.CreateSimpleButton("but1", "Choose your outfit");
+      button1.width = 1;
+      button1.height = 0.4;
+      button1.color = "black";
+      button1.fontSize = 50;
+      button1.background = "pink";
+      button1.onPointerUpObservable.add(() => this.ClickOutfit(this));
+      advancedTexture2.addControl(button1);
       
+    }
+    ClickOutfit(self : FirstTry):void{
+      (document.querySelector(".modal-wrapper-outfit") as HTMLDivElement).style.display = "block";  //AFFICHE LA PAGE SHOP
+      
+      (document.querySelector(".modal-close-outfit") as HTMLDivElement).addEventListener("click", hide);  //Clique de la croix ?
         document.getElementById("./image/horizontal/manche.png")!.addEventListener("click", (evt)=>wear("manche",evt));
         document.getElementById("./image/horizontal/manche_bob.png")!.addEventListener("click", (evt)=>wear("manche_bob",evt));
         document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", (evt)=>wear("long_blanc",evt));
@@ -292,11 +277,7 @@ export class FirstTry {
         document.getElementById("./image/horizontal/long_marron.png")!.addEventListener("click", (evt)=>wear("long_marron",evt));
         document.getElementById("./image/horizontal/initial_bob.png")!.addEventListener("click", (evt)=>wear("bob",evt));
 
-        
-      function hide() {
-          (document.querySelector(".modal-wrapper") as HTMLDivElement).style.display = "none";  //Enlève la page shop
-          }
-
+      
       // fonction pour changer d'outfit 
 
       function wear(id:string,evt:Event){
@@ -325,35 +306,7 @@ export class FirstTry {
         evt.stopImmediatePropagation();
       }
 
-      //fonction pour obtenir un vetement
-
-      function buy(name: string, self: FirstTry,evt:Event){
-        if(isOwned(name)==true){
-          alert("You already own "+name);
-        }
-        else{
-          console.log(name);
-          let price = 6;
-          if(name=="bob"){
-            price = 3;
-          }
-          const cloth = new Cloth(name, price);
-          if((self.cptLaine >= cloth.price)){
-            self.cptLaine = self.cptLaine-cloth.price;
-            self.text.text = "laine : "+self.cptLaine;
-            cloth.owned = true;
-            self.wardrobe.push(cloth);
-            alert("You just bought "+cloth.name);
-            }
-           
-          else{
-             alert("You dont have enought wool, soory :(");
-          }
-        }
-        evt.stopImmediatePropagation();
       
-      }   
-    
       //fonction pour voir si on possède un habit
       function isOwned(name: string){
         for(const c of self.wardrobe){
@@ -363,45 +316,27 @@ export class FirstTry {
         }
         return false;
       }
-    }
-    }
     
-    CreateChooseYourOutfit():void {
-      const plane = Mesh.CreatePlane("plane",3,this.scene); //plane, le plan 2D sur lequel on va cliquer, 2=size
-      plane.position.y = 2;
-      plane.position.x = -45;
-      plane.position.z = 28;
-      plane.rotate(new Vector3(0,1,0),-1.5708);
-  
-      const advancedTexture2 = AdvancedDynamicTexture.CreateForMesh(plane);
-  
-      const button1 = Button.CreateSimpleButton("but1", "Choose your outfit");
-      button1.width = 1;
-      button1.height = 0.4;
-      button1.color = "black";
-      button1.fontSize = 50;
-      button1.background = "pink";
-      button1.onPointerUpObservable.add(()=>this.ClickOutfit(this));
-      advancedTexture2.addControl(button1);
-      
-    }
-
-
-    ClickOutfit(self : FirstTry):void{
-      (document.querySelector(".modal-wrapper-outfit") as HTMLDivElement).style.display = "block";  //AFFICHE LA PAGE SHOP
-      (document.querySelector(".modal-close-outfit") as HTMLDivElement).addEventListener("click", hide);  //Clique de la croix ?
-      
 
       function hide() {
           (document.querySelector(".modal-wrapper-outfit") as HTMLDivElement).style.display = "none";  //Enlève la page shop
+          }
+
+      ///////// Debut du cpt de fashion ///////////////
+      ///Mettre dans un event Listener on a changé d'outfit
+      /*
+      for (let i =0 ; i<= self.fashionLevel ; i++){
+        (document.querySelector("#etoile"+i) as HTMLImageElement).style.display = "none" ;//  ../../public/fashion/star65.png Mettre ca pour l'hebergement je pense
+        (document.querySelector("#etoile"+i+"Obtenue") as HTMLImageElement).style.display = "block" ;
       }
+      
+      self.fashionLevel += 0.5;
+      */
     }
-
-
-
+    
     CreateCutScene(self : FirstTry):void{
-
-      //check si outfit a deja été porté sur le runway
+      
+      console.log("dans cutscene", this.cptFashion);
       let alreadyWorn = false;
       for(let i=0; i<=this.alreadyRunwayOutfit.length; i++){
         if(this.alreadyRunwayOutfit[i]==this.currentoutfit){
@@ -410,11 +345,32 @@ export class FirstTry {
       }
       //si outfit n'a jamais été porté sur le runway: augmenter le conteur de fashion
 
-      if(alreadyWorn){
+      if(!alreadyWorn){
+        this.alreadyRunwayOutfit.push(this.currentoutfit);
+        console.log("pas worn", this.cptFashion,"already warn :",alreadyWorn);
         this.cptFashion+=1;
+        if (this.cptFashion%2==0){
+          for (let i =0 ; i< this.cptFashion/2 ; i++){
+            (document.querySelector("#etoile"+i) as HTMLImageElement).style.display = "none" ;//  ../../public/fashion/star65.png Mettre ca pour l'hebergement je pense
+            (document.querySelector("#etoile"+i+"Half") as HTMLImageElement).style.display = "none" ;
+            (document.querySelector("#etoile"+i+"Obtenue") as HTMLImageElement).style.display = "block" ;
+          }
+          console.log("dans le if", this.cptFashion);
+        }
+        else{
+          for (let i =0 ; i< (this.cptFashion-1)/2 ; i++){
+            (document.querySelector("#etoile"+i) as HTMLImageElement).style.display = "none" ;//  ../../public/fashion/star65.png Mettre ca pour l'hebergement je pense
+            (document.querySelector("#etoile"+i+"Half") as HTMLImageElement).style.display = "none" ;
+            (document.querySelector("#etoile"+i+"Obtenue") as HTMLImageElement).style.display = "block" ;
+          }
+          (document.querySelector("#etoile"+(this.cptFashion-1)) as HTMLImageElement).style.display = "none" ;//  ../../public/fashion/star65.png Mettre ca pour l'hebergement je pense
+          (document.querySelector("#etoile"+(this.cptFashion-1)+"Half") as HTMLImageElement).style.display = "block" ;
+          console.log("dans le else", this.cptFashion);
+        }
+        
       }
+      console.log("sortie du if ", this.cptFashion);
 
-      
       const camKeys = [];
       console.log("Dans la methode",self);
       const fps = 60;
@@ -442,8 +398,6 @@ export class FirstTry {
       timer.onTimerEndedObservable.add(() => self.SecondAnimation(self));
       timer.start(8* fps*18);
     }
-
-
     SecondAnimation(self : FirstTry){
       const fps = 60;
       const camKeys = [];
@@ -489,10 +443,11 @@ export class FirstTry {
     }
 
     async CreatePersonnage(): Promise<void> {
+    
       const { meshes , animationGroups } = await SceneLoader.ImportMeshAsync(
         "",
-        "./models/",
-        "animated.glb",
+        "./animated/",
+        "persoTopMarronBob.glb",
         this.scene
       );
       meshes[0].rotate(Vector3.Up(),Math.PI/2);
@@ -523,12 +478,127 @@ export class FirstTry {
       advancedTexture2.addControl(button1);
       console.log("Juste avant",this);
       button1.onPointerUpObservable.add(() => this.CreateCutScene(this));
-
       
       
     }
+
+  async CreateMamie(): Promise<void> {
     
+    const { meshes } = await SceneLoader.ImportMeshAsync(
+      "",
+      "./models/",
+      "MamieAnimated.glb",
+      this.scene
+    );
+    //apply collisions to every mesh in the model
+    //.map goes through every meshs
+    meshes.map(mesh=>{ //for each mesh apply collisions donc c'est comme un for i in list par exemple
+       mesh.checkCollisions=true;
+      mesh.actionManager = new ActionManager(this.scene);
+      mesh.actionManager.registerAction(
+        new ExecuteCodeAction({trigger: ActionManager.OnPickTrigger},() => this.Shop(this)));  //Quand on click sur la boule ca lance Mouton1OnClick
+    })
+    //meshes[0].rotate(Vector3.Up(),Math.PI/2);
+    meshes[0].position = new Vector3(-40,0,25);
+    meshes[0].scaling = new Vector3(2,2,2);
+  }
+
+  Shop(self : FirstTry){
+    (document.querySelector(".modal-wrapper") as HTMLDivElement).style.display = "block";  //AFFICHE LA PAGE SHOP
+        (document.querySelector(".modal-close") as HTMLDivElement).addEventListener("click", hide);  //Clique de la croix ?
+
+
+        document.getElementById("manche")!.addEventListener("click",(evt) => buy("manche",self,evt));  //buy cloth1
+        (document.querySelector("#fleur_bleu") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("fleur_bleu",self,evt));
+        (document.querySelector("#fleur_blanc") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("fleur_blanc",self,evt));
+        (document.querySelector("#long_blanc") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("long_blanc",self,evt));
+        (document.querySelector("#long_marron") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("long_marron",self,evt));
+        (document.querySelector("#bob") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("bob", self,evt));
+      /*
+        document.getElementById("./image/horizontal/manche.png")!.addEventListener("click", (evt)=>wear("manche",evt));
+        document.getElementById("./image/horizontal/manche_bob.png")!.addEventListener("click", (evt)=>wear("manche_bob",evt));
+        document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", (evt)=>wear("long_blanc",evt));
+        document.getElementById("./image/horizontal/fleur_blanc.png")!.addEventListener("click", (evt)=>wear("fleur_blanc",evt));
+        document.getElementById("./image/horizontal/fleur_blanc_bob.png")!.addEventListener("click", (evt)=>wear("fleur_blanc_bob",evt));
+        document.getElementById("./image/horizontal/fleur_bleu.png")!.addEventListener("click", (evt)=>wear("fleur_bleu",evt));
+        document.getElementById("./image/horizontal/fleur_bleu_bob.png")!.addEventListener("click", (evt)=>wear("fleur_bleu_bob",evt));
+        document.getElementById("./image/horizontal/long_blanc_bob.png")!.addEventListener("click", (evt)=>wear("long_blanc_bob",evt));
+        document.getElementById("./image/horizontal/long_marron_bob.png")!.addEventListener("click", (evt)=>wear("long_marron_bob",evt));
+        document.getElementById("./image/horizontal/long_marron.png")!.addEventListener("click", (evt)=>wear("long_marron",evt));
+        document.getElementById("./image/horizontal/initial_bob.png")!.addEventListener("click", (evt)=>wear("bob",evt));
+*/
+        
+      function hide() {
+          (document.querySelector(".modal-wrapper") as HTMLDivElement).style.display = "none";  //Enlève la page shop
+          }
+
+      
+
+      //fonction pour obtenir un vetement
+
+      function buy(name: string, self: FirstTry,evt:Event){
+        if(isOwned(name)==true){
+          alert("You already own "+name);
+        }
+        else{
+          console.log(name);
+          let price = 6;
+          if(name=="bob"){
+            price = 3;
+          }
+          const cloth = new Cloth(name, price);
+          if((self.cptLaine >= cloth.price)){
+            self.cptLaine = self.cptLaine-cloth.price;
+            self.text.text = "laine : "+self.cptLaine;
+            cloth.owned = true;
+            self.wardrobe.push(cloth);
+            alert("You just bought "+cloth.name);
+            }
+           
+          else{
+             alert("You dont have enought wool, soory :(");
+          }
+        }
+        evt.stopImmediatePropagation();
+      
+      }   
+    
+      //fonction pour voir si on possède un habit
+      function isOwned(name: string){
+        for(const c of self.wardrobe){
+          if(c.name==name){
+            return true;
+          }
+        }
+        return false;
+      }
+    }
+  
 }
+
+
+class Mouton{
+  public timer : int;
+  public avancement : int;
+  public available : boolean;
+  public path : string;
+  public plane : Mesh;
+  //public matcollect : StandardMaterial;
+
+  constructor(path : string){
+    this.timer=0;
+    this.avancement=1;
+    this.available=true;
+    this.path=path;
+    const f = new Vector4(0,0, 1 , 1);
+    this.plane = MeshBuilder.CreatePlane("plane", {frontUVs: f, backUVs: f, sideOrientation: Mesh.DOUBLESIDE});
+    //this.matcollect = new StandardMaterial("",this.scene);
+    //this.matcollect.diffuseTexture = new Texture("./textures/timer/collect.png");
+    
+  }
+}
+
+
 
 class Cloth{
   name: string;
@@ -544,4 +614,3 @@ class Cloth{
   }
 
 }
-
