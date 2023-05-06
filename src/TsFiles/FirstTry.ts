@@ -37,13 +37,14 @@ export class FirstTry {
     //Setup pour le cpt de Laine
     this.textBox = new SelectionPanel("textBox");
     this.text = new TextBlock();
-    this.cptLaine=0;
+    this.cptLaine=33;
     this.timersec = 5 ;
     this.matcollect = new StandardMaterial("",this.scene);
     this.matcollect.diffuseTexture = new Texture("./textures/timer/collect.png");
 
     //pour les vetements:
-    this.wardrobe = [];
+    const initial = new Cloth("initial", 0);
+    this.wardrobe = [initial];
     this.currentoutfit = "";
     this.alreadyRunwayOutfit = [];
     this.cptFashion = 0;
@@ -240,7 +241,25 @@ export class FirstTry {
     
 
     }
-  
+    /*
+    RefreshOwned():void{
+      const outfits = ["fleur_bleu", "fleur_bleu_bob", "fleur_blanc_bob","fleur_blanc","manche","manche_bob","long_blanc","long_blanc_bob","long_marron","long_marron_bob","bob"];
+      const clothes = ["bob", "manche", "fleur_blanc", "fleur_bleu", "long_blanc", "long_marron"];
+      for(let outfit in outfits){
+        let outfitowned = true;
+        for(let cloth in clothes){
+          if(outfit.includes(cloth)){
+            if(!this.CreateChooseYourOutfit.isOwned(cloth)){
+              outfitowned = false;
+            }
+          }
+        }
+        if(outfitowned){
+          !document.getElementById(outfit).classList.remove("notOwed");
+        }
+      }
+    }
+    */
 
     CreateChooseYourOutfit():void {
       const plane = Mesh.CreatePlane("plane",3,this.scene); //plane, le plan 2D sur lequel on va cliquer, 2=size
@@ -262,6 +281,7 @@ export class FirstTry {
       
     }
     ClickOutfit(self : FirstTry):void{
+  
       (document.querySelector(".modal-wrapper-outfit") as HTMLDivElement).style.display = "block";  //AFFICHE LA PAGE SHOP
       
       (document.querySelector(".modal-close-outfit") as HTMLDivElement).addEventListener("click", hide);  //Clique de la croix ?
@@ -276,7 +296,7 @@ export class FirstTry {
         document.getElementById("./image/horizontal/long_marron_bob.png")!.addEventListener("click", (evt)=>wear("long_marron_bob",evt));
         document.getElementById("./image/horizontal/long_marron.png")!.addEventListener("click", (evt)=>wear("long_marron",evt));
         document.getElementById("./image/horizontal/initial_bob.png")!.addEventListener("click", (evt)=>wear("bob",evt));
-
+        document.getElementById("./image/horizontal/initial.png")!.addEventListener("click", (evt)=>wear("initial",evt));
       
       // fonction pour changer d'outfit 
 
@@ -316,22 +336,10 @@ export class FirstTry {
         }
         return false;
       }
-    
 
       function hide() {
           (document.querySelector(".modal-wrapper-outfit") as HTMLDivElement).style.display = "none";  //Enlève la page shop
           }
-
-      ///////// Debut du cpt de fashion ///////////////
-      ///Mettre dans un event Listener on a changé d'outfit
-      /*
-      for (let i =0 ; i<= self.fashionLevel ; i++){
-        (document.querySelector("#etoile"+i) as HTMLImageElement).style.display = "none" ;//  ../../public/fashion/star65.png Mettre ca pour l'hebergement je pense
-        (document.querySelector("#etoile"+i+"Obtenue") as HTMLImageElement).style.display = "block" ;
-      }
-      
-      self.fashionLevel += 0.5;
-      */
     }
     
     CreateCutScene(self : FirstTry):void{
@@ -363,7 +371,7 @@ export class FirstTry {
             (document.querySelector("#etoile"+i+"Half") as HTMLImageElement).style.display = "none" ;
             (document.querySelector("#etoile"+i+"Obtenue") as HTMLImageElement).style.display = "block" ;
           }
-          (document.querySelector("#etoile"+(this.cptFashion-1)) as HTMLImageElement).style.display = "none" ;//  ../../public/fashion/star65.png Mettre ca pour l'hebergement je pense
+          (document.querySelector("#etoile"+((this.cptFashion-1)/2)) as HTMLImageElement).style.display = "none" ;//  ../../public/fashion/star65.png Mettre ca pour l'hebergement je pense
           (document.querySelector("#etoile"+(this.cptFashion-1)+"Half") as HTMLImageElement).style.display = "block" ;
           console.log("dans le else", this.cptFashion);
         }
@@ -514,19 +522,7 @@ export class FirstTry {
         (document.querySelector("#long_blanc") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("long_blanc",self,evt));
         (document.querySelector("#long_marron") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("long_marron",self,evt));
         (document.querySelector("#bob") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("bob", self,evt));
-      /*
-        document.getElementById("./image/horizontal/manche.png")!.addEventListener("click", (evt)=>wear("manche",evt));
-        document.getElementById("./image/horizontal/manche_bob.png")!.addEventListener("click", (evt)=>wear("manche_bob",evt));
-        document.getElementById("./image/horizontal/long_blanc.png")!.addEventListener("click", (evt)=>wear("long_blanc",evt));
-        document.getElementById("./image/horizontal/fleur_blanc.png")!.addEventListener("click", (evt)=>wear("fleur_blanc",evt));
-        document.getElementById("./image/horizontal/fleur_blanc_bob.png")!.addEventListener("click", (evt)=>wear("fleur_blanc_bob",evt));
-        document.getElementById("./image/horizontal/fleur_bleu.png")!.addEventListener("click", (evt)=>wear("fleur_bleu",evt));
-        document.getElementById("./image/horizontal/fleur_bleu_bob.png")!.addEventListener("click", (evt)=>wear("fleur_bleu_bob",evt));
-        document.getElementById("./image/horizontal/long_blanc_bob.png")!.addEventListener("click", (evt)=>wear("long_blanc_bob",evt));
-        document.getElementById("./image/horizontal/long_marron_bob.png")!.addEventListener("click", (evt)=>wear("long_marron_bob",evt));
-        document.getElementById("./image/horizontal/long_marron.png")!.addEventListener("click", (evt)=>wear("long_marron",evt));
-        document.getElementById("./image/horizontal/initial_bob.png")!.addEventListener("click", (evt)=>wear("bob",evt));
-*/
+
         
       function hide() {
           (document.querySelector(".modal-wrapper") as HTMLDivElement).style.display = "none";  //Enlève la page shop
@@ -543,7 +539,7 @@ export class FirstTry {
         else{
           console.log(name);
           let price = 6;
-          if(name=="bob"){
+          if(name =="bob"){
             price = 3;
           }
           const cloth = new Cloth(name, price);
@@ -553,7 +549,14 @@ export class FirstTry {
             cloth.owned = true;
             self.wardrobe.push(cloth);
             alert("You just bought "+cloth.name);
+
+            //montrer que le vetement est portable
+            document.getElementsByClassName(name)[0].classList.remove("notOwned");
+            if(isOwned("bob") && name!="bob"){
+              document.getElementsByClassName(name+"_bob")[0].classList.remove("notOwned");
             }
+          }
+
            
           else{
              alert("You dont have enought wool, soory :(");

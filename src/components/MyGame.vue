@@ -27,43 +27,49 @@
       <img id ="etoile4Half" src="../../public/fashion/starHalf65.png" class = "etoileHalf" alt="">
       <img id ="etoile4Obtenue" src="../../public/fashion/star65.png" class = "etoileObtenue" alt="">
     </div>
+    <div>
+      <img id ="etoile5" src="../../public/fashion/starBlack65.png" class = "etoile" alt="">
+      <img id ="etoile5Half" src="../../public/fashion/starHalf65.png" class = "etoileHalf" alt="">
+      <img id ="etoile5Obtenue" src="../../public/fashion/star65.png" class = "etoileObtenue" alt="">
+    </div>
   </div>
   <div class="modal-wrapper">
      <div class="modal">
          <div class="modal-close">X</div>
          <div class="modal-content">
              <h2 id="titre-shop">Let's shop</h2>
-             <div id="un">
+
+             <div id="un" class="black">
                 <img class="img" src="./image/newpose_manche.png">
                 <button class="bog" id="manche">Buy on game</button>
                 <button><a href="https://www.instagram.com/">Buy irl !</a></button>
             </div>
 
-            <div id="deux">
+            <div id="deux" class="black">
                 <img class="img" src="./image/newpose_top_fleur_blanc.png">
                 <button class="bog" id="fleur_blanc">Buy on game</button>
                 <button><a href="https://www.instagram.com/">Buy irl !</a></button>
             </div>
 
-            <div id="trois">
+            <div id="trois" class="black">
                 <img class="img" src="./image/newpose_top_fleur_bleu.png">
                 <button class="bog" id="fleur_bleu">Buy on game</button>
                 <button><a href="https://www.instagram.com/">Buy irl !</a></button>
             </div>
 
-            <div id="quatre">
+            <div id="quatre" class="black">
                 <img class="img" src="./image/newpose_top_long_blanc.png">
                 <button class="bog" id="long_blanc">Buy on game</button>
                 <button><a href="https://www.instagram.com/">Buy irl !</a></button>
             </div>
 
-            <div id="cinq">
+            <div id="cinq" class="black">
                 <img class="img" src="./image/newpose_top_long_marron.png">
                 <button class="bog" id="long_marron">Buy on game</button>
                 <button><a href="https://www.instagram.com/">Buy irl !</a></button>
             </div>
 
-            <div id="six">
+            <div id="six" class="black">
                 <img class="img" src="./image/newbob.png">
                 <button class="bog" id="bob">Buy on game</button>
                 <button><a href="https://www.instagram.com/">Buy irl !</a></button>
@@ -81,57 +87,66 @@
             <h2 id="titre-cyo">Choose your outfit !</h2>
             <div id="current-outfit"><img id="imgoutfit" src="./image/outfit/initial.png"></div>
             <div id="choose">
+                
+                <div id="out-zero" class="initial">
+                    <img class="outimg" src="./image/horizontal/initial.png">
+                    <button class="wto" id="./image/horizontal/initial.png">Wear</button>
+                </div>
+                
 
-                <div id="out-un">
+               
+                <div id="out-un" class="manche notOwned">
                     <img class="outimg" src="./image/horizontal/manche.png">
                     <button class="wto" id="./image/horizontal/manche.png">Wear</button>
                 </div>
+               
 
-                <div id="out-deux">
-                    <img class="outimg" src="./image/horizontal/fleur_blanc.png">
+                <div id="out-deux" class="fleur_blanc notOwned">
+                    <img class="outimg " src="./image/horizontal/fleur_blanc.png">
                     <button class="wto" id="./image/horizontal/fleur_blanc.png">Wear</button>
                 </div>
 
-                <div id="out-trois">
+                <div id="out-trois" class="fleur_bleu notOwned">
                     <img class="outimg" src="./image/horizontal/fleur_bleu.png">
                     <button class="wto" id="./image/horizontal/fleur_bleu.png">Wear</button>
                 </div>
 
-                <div id="out-quatre">
+                <div id="out-quatre" class="long_blanc notOwned">
                     <img class="outimg" src="./image/horizontal/long_blanc.png">
                     <button class="wto" id="./image/horizontal/long_blanc.png">Wear</button>
                 </div>
 
-                <div id="out-cinq">
+                <div id="out-cinq" class="long_marron notOwned">
                     <img class="outimg" src="./image/horizontal/long_marron.png">
                     <button class="wto" id="./image/horizontal/long_marron.png">Wear</button>
                 </div>
 
-                <div id="out-six">
+                <div id="out-six" class="manche_bob notOwned">
                     <img class="outimg" src="./image/horizontal/manche_bob.png">
                     <button class="wto" id="./image/horizontal/manche_bob.png">Wear</button>
                 </div>
-                <div id="out-sept">
+                <div id="out-sept" class="fleur_blanc_bob notOwned">
                     <img class="outimg" src="./image/horizontal/fleur_blanc_bob.png">
                     <button class="wto" id="./image/horizontal/fleur_blanc_bob.png">Wear</button>
                 </div>
-                <div id="out-huit">
+                <div id="out-huit" class="fleur_bleu_bob notOwned">
                     <img class="outimg" src="./image/horizontal/fleur_bleu_bob.png">
                     <button class="wto" id="./image/horizontal/fleur_bleu_bob.png">Wear</button>
                 </div>
-                <div id="out-neuf">
+                <div id="out-neuf" class="long_blanc_bob notOwned">
                     <img class="outimg" src="./image/horizontal/long_blanc_bob.png">
                     <button class="wto" id="./image/horizontal/long_blanc_bob.png">Wear</button>
                 </div>
-                <div id="out-dix">
+                <div id="out-dix" class="long_marron_bob notOwned">
                     <img class="outimg" src="./image/horizontal/long_marron_bob.png">
                     <button class="wto" id="./image/horizontal/long_marron_bob.png">Wear</button>
                 </div>
 
-                <div id="out-onze">
+                <div id="out-onze" class="bob notOwned">
                     <img class="outimg" src="./image/horizontal/initial_bob.png">
                     <button class="wto" id="./image/horizontal/initial_bob.png">Wear</button>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -168,9 +183,9 @@ canvas {
     bottom: 0%;
     left : 35%;
     height: 65px;
-    width: 325px;
+    width: 390px;
     display: grid;
-    grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr ;
+    grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr 1fr;
     border: 5px solid rgb(236, 240, 24);
     border-radius: 20px;
 }
@@ -192,8 +207,31 @@ canvas {
   width: 100%;
   display: none;
 }
+/*
+.black{
+  background: rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+*/
+.notOwned{
+  background: rgba(0, 0, 0, 0.199);
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
 
+.notOwned button{
+  filter: opacity(30%);
+}
 
+.notOwned img{
+    filter: opacity(30%);
+}
 .modal {
   text-align: center;
   max-width: 800px;
@@ -359,6 +397,7 @@ button:focus-visible{
   width: 100%;
   display: none;
 }
+
 .modal-outfit {
   text-align: center;
   max-width: 800px;
@@ -395,9 +434,16 @@ button:focus-visible{
     grid-column: 1;
     grid-row: 1/3;
     display: grid;
-    grid-template-rows: repeat(11,145px);
+    grid-template-rows: repeat(12,145px);
     overflow-y: auto;
     height: 580px;
+}
+
+#out-zero{
+    grid-row: 12;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
 }
 
 #out-un{
