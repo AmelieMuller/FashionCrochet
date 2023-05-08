@@ -32,6 +32,8 @@ export class FirstTry {
     this.CreateController();
 
     this.CreateChooseYourOutfit();
+    
+    this.CreatePendu();
 
     
     //Setup pour le cpt de Laine
@@ -278,7 +280,7 @@ export class FirstTry {
       button1.background = "pink";
       button1.onPointerUpObservable.add(() => this.ClickOutfit(this));
       advancedTexture2.addControl(button1);
-      
+    
     }
     ClickOutfit(self : FirstTry):void{
   
@@ -523,15 +525,42 @@ export class FirstTry {
         (document.querySelector("#long_marron") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("long_marron",self,evt));
         (document.querySelector("#bob") as HTMLButtonElement)!.addEventListener("click",(evt) => buy("bob", self,evt));
 
+        document.getElementsByClassName("recycle")[0].addEventListener("click",(evt)=>recycle("manche",self,evt));
+        document.getElementsByClassName("recycle")[1].addEventListener("click",(evt)=>recycle("fleur_blanc",self,evt));
+        document.getElementsByClassName("recycle")[2].addEventListener("click",(evt)=>recycle("fleur_bleu",self,evt));
+        document.getElementsByClassName("recycle")[3].addEventListener("click",(evt)=>recycle("long_blanc",self,evt));
+        document.getElementsByClassName("recycle")[4].addEventListener("click",(evt)=>recycle("long_marron",self,evt));
+        document.getElementsByClassName("recycle")[5].addEventListener("click",(evt)=>recycle("bob",self,evt));
         
       function hide() {
           (document.querySelector(".modal-wrapper") as HTMLDivElement).style.display = "none";  //Enlève la page shop
           }
 
-      
+      //fonction pour recycler 
+      function recycle(name:string, self: FirstTry,evt:Event){
+          if(isOwned(name) && (self.currentoutfit.indexOf(name)==-1)){
+            if(name=="bob"){
+                self.cptLaine +=1;
+                self.text.text = "laine : "+self.cptLaine;
+            }
+            else{
+                self.cptLaine +=3;
+                    self.text.text = "laine : "+self.cptLaine;
+            }
+            self.wardrobe = self.wardrobe.filter((cloth)=>cloth.name!=name);
+            alert("you just recycled "+name);
+            document.getElementsByClassName(name)[0].classList.add("notOwned");
+            if(isOwned("bob") && name!="bob"){
+              document.getElementsByClassName(name+"_bob")[0].classList.add("notOwned");
+            }
+          }
+          else{
+              alert("You cant recycle this item");
+          }
+          evt.stopImmediatePropagation();
+        }
 
       //fonction pour obtenir un vetement
-
       function buy(name: string, self: FirstTry,evt:Event){
         if(isOwned(name)==true){
           alert("You already own "+name);
@@ -556,8 +585,6 @@ export class FirstTry {
               document.getElementsByClassName(name+"_bob")[0].classList.remove("notOwned");
             }
           }
-
-           
           else{
              alert("You dont have enought wool, soory :(");
           }
@@ -576,9 +603,31 @@ export class FirstTry {
         return false;
       }
     }
-  
-}
+  async CreatePendu(): Promise<void>{
+    const plane = Mesh.CreatePlane("plane",3,this.scene); //plane, le plan 2D sur lequel on va cliquer, 2=size
+    plane.position.y = 2;
+    plane.position.x = -6;
+    plane.position.z = 0;
+    plane.rotate(new Vector3(0,0,0),-1.5708);
 
+    const advancedTexture2 = AdvancedDynamicTexture.CreateForMesh(plane);
+
+    const button1 = Button.CreateSimpleButton("but1", "Let's play !");
+    button1.width = 1;
+    button1.height = 0.4;
+    button1.color = "black";
+    button1.fontSize = 50;
+    button1.background = "pink";
+    button1.onPointerUpObservable.add(() => this.ClickPendu(this));
+    advancedTexture2.addControl(button1);
+  }
+  
+
+
+  ClickPendu(self : FirstTry):void{
+    (document.querySelector("#modal-wrapper-pendu") as HTMLDivElement).style.display = "block";  
+  }
+}
 
 class Mouton{
   public timer : int;

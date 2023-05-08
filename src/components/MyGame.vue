@@ -42,36 +42,42 @@
              <div id="un" class="black">
                 <img class="img" src="./image/newpose_manche.png">
                 <button class="bog" id="manche">Buy on game</button>
+                <button class="recycle" id="manche"><img class="recycle-img" src="./image/repeat-outline.svg"></button>
                 <button><a href="https://www.instagram.com/">Buy irl !</a></button>
             </div>
 
             <div id="deux" class="black">
                 <img class="img" src="./image/newpose_top_fleur_blanc.png">
                 <button class="bog" id="fleur_blanc">Buy on game</button>
+                <button class="recycle" ><img class="recycle-img" src="./image/repeat-outline.svg"></button>
                 <button><a href="https://www.instagram.com/">Buy irl !</a></button>
             </div>
 
             <div id="trois" class="black">
                 <img class="img" src="./image/newpose_top_fleur_bleu.png">
                 <button class="bog" id="fleur_bleu">Buy on game</button>
-                <button><a href="https://www.instagram.com/">Buy irl !</a></button>
+                <button class="recycle" ><img class="recycle-img" src="./image/repeat-outline.svg"></button> 
+                <button><a href="https://www.instagram.com/">Buy irl !</a></button>              
             </div>
 
             <div id="quatre" class="black">
                 <img class="img" src="./image/newpose_top_long_blanc.png">
                 <button class="bog" id="long_blanc">Buy on game</button>
+                <button class="recycle" ><img class="recycle-img" src="./image/repeat-outline.svg"></button> 
                 <button><a href="https://www.instagram.com/">Buy irl !</a></button>
             </div>
 
             <div id="cinq" class="black">
                 <img class="img" src="./image/newpose_top_long_marron.png">
                 <button class="bog" id="long_marron">Buy on game</button>
+                <button class="recycle" ><img class="recycle-img" src="./image/repeat-outline.svg"></button>  
                 <button><a href="https://www.instagram.com/">Buy irl !</a></button>
             </div>
 
             <div id="six" class="black">
                 <img class="img" src="./image/newbob.png">
                 <button class="bog" id="bob">Buy on game</button>
+                <button class="recycle"><img class="recycle-img" src="./image/repeat-outline.svg"></button>     
                 <button><a href="https://www.instagram.com/">Buy irl !</a></button>
             </div>
 
@@ -151,9 +157,20 @@
         </div>
     </div>
 </div>
+    <div id="modal-wrapper-pendu">
+        <div id="modal-pendu">
+            <div id="modal-close">X</div>
+            <div id="modal-content-pendu">
+                <h2>Let's play the pendu</h2>
+            </div>
+        </div>
+    </div>
+
+
 
 
 </template>
+
 
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -169,8 +186,10 @@ export default defineComponent({
 });
 </script>
 
+
 <!-- Add "scoped" attribute to limit CSS to this component only partie css-->
 <style scoped>
+
 canvas {
   width:100% ;
   height:100% ;
@@ -189,6 +208,7 @@ canvas {
     border: 5px solid rgb(236, 240, 24);
     border-radius: 20px;
 }
+
 .etoileObtenue{
   display : none;
 }
@@ -207,15 +227,7 @@ canvas {
   width: 100%;
   display: none;
 }
-/*
-.black{
-  background: rgba(0, 0, 0, 0.1);
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-}
-*/
+
 .notOwned{
   background: rgba(0, 0, 0, 0.199);
   top: 0;
@@ -240,7 +252,7 @@ canvas {
   padding: 20px;
   margin: auto;
   margin-top: 20px;
-  height: 600px;
+  height: 650px;
   border-radius: 5px;
   position: relative;
 }
@@ -259,7 +271,7 @@ canvas {
   display: grid;
   grid-template-rows: 40px 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 5px;
+  gap: 10px;
   height: 600px;
 }
 
@@ -325,9 +337,25 @@ button:focus-visible{
 }
 
 .bog{
-    
     margin-right: 0px;
     margin-left: 55px;
+}
+
+.recycle{
+    background-color: rgb(2, 100, 2);
+    grid-row: 3;
+    grid-column: 1/3;
+    margin: auto;
+    width: 40px;
+    
+}
+
+.recycle-img{
+    filter: invert(100%) sepia(100%);
+    z-index: 2;
+    width: 30px;
+    height: 20px;
+    margin-bottom: 3px;
 }
 
 #un{
@@ -335,8 +363,8 @@ button:focus-visible{
     grid-column: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 4fr 1fr;
-    gap: 10px;
+    grid-template-rows: 8fr 1fr 1fr;
+    gap: 5px;
 }
 
 #deux{
@@ -344,7 +372,7 @@ button:focus-visible{
     grid-column: 2;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 4fr 1fr;
+    grid-template-rows: 8fr 1fr 1fr;
     gap: 10px;
 }
 
@@ -353,7 +381,7 @@ button:focus-visible{
     grid-column: 3;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 4fr 1fr;
+    grid-template-rows: 8fr 1fr 1fr;
     gap: 10px;
 }
 
@@ -362,7 +390,7 @@ button:focus-visible{
     grid-column: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 4fr 1fr;
+    grid-template-rows: 8fr 1fr 1fr;
     gap: 10px;
 }
 
@@ -371,7 +399,7 @@ button:focus-visible{
     grid-column: 2;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 4fr 1fr;
+    grid-template-rows: 8fr 1fr 1fr;
     gap: 10px;
 }
 
@@ -380,7 +408,7 @@ button:focus-visible{
     grid-column: 3;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 4fr 1fr;
+    grid-template-rows: 8fr 1fr 1fr;
     gap: 10px;
 }
 
@@ -559,6 +587,42 @@ button:focus-visible{
 }
 
 
+/* Pour le pendu */
+
+#modal-wrapper-pendu{
+  background: rgba(0, 0, 0, 0.508);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: none;
+
+}
+
+#modal-pendu{
+  text-align: center;
+  max-width: 80%;
+  width: 100%;
+  background: rgb(183, 194, 207);
+  padding: 20px;
+  margin: auto;
+  margin-top: 20px;
+  height: 80%;
+  border-radius: 5px;
+  position: relative;
+}
+
+#modal-close-pendu {
+  color: rgb(197, 34, 66);
+  border: 1px solid black;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  width: 20px;
+  border-radius: 5px;
+}
 
 
 </style>
