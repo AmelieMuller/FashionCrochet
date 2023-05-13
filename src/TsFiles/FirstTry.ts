@@ -19,6 +19,16 @@ export class FirstTry {
   currentoutfit: string;
   alreadyRunwayOutfit :string[];
 
+  //pour le pendu: 
+  nberreurs :int;
+  motadecouvrir :string;
+  currentmot:string[];
+  currentmotjoli :string[];
+  limiteerreurs :int;
+  enjeu :boolean;
+  dico :string[];
+
+  cptCarotte:int;
 
   constructor(private canvas: HTMLCanvasElement) {
     this.engine = new Engine(this.canvas, true);
@@ -51,6 +61,17 @@ export class FirstTry {
     this.alreadyRunwayOutfit = [];
     this.cptFashion = 0;
     
+
+    //pour le pendu
+    this.nberreurs=1;
+    this.motadecouvrir ="";
+    this.currentmot = [];
+    this.currentmotjoli =[];
+    this.limiteerreurs =10;
+    this.enjeu = false;
+    this.dico = ["WOOL","CROCHET","FASHION"];
+    
+    this.cptCarotte = 0;
 
     this.CreateCptLaine();
     this.CreateMouton(new Mouton("moutonGwen.glb"));
@@ -603,6 +624,7 @@ export class FirstTry {
         return false;
       }
     }
+
   async CreatePendu(): Promise<void>{
     const plane = Mesh.CreatePlane("plane",3,this.scene); //plane, le plan 2D sur lequel on va cliquer, 2=size
     plane.position.y = 2;
@@ -625,9 +647,174 @@ export class FirstTry {
 
 
   ClickPendu(self : FirstTry):void{
-    (document.querySelector("#modal-wrapper-pendu") as HTMLDivElement).style.display = "block";  
+    
+    (document.querySelector("#modal-wrapper-pendu") as HTMLDivElement).style.display="block";  
+    (document.querySelector("#modal-close-pendu") as HTMLDivElement).addEventListener("click", hide);
+    refresh();
+
+    function hide() {
+      (document.querySelector("#modal-wrapper-pendu") as HTMLDivElement).style.display = "none";  
+    }
+
+
+
+document.getElementById("pendu-reset")!.addEventListener("click", refresh);
+
+document.getElementById(String.fromCharCode(65))!.addEventListener("click", ()=>testLettre(String.fromCharCode(65)));
+document.getElementById(String.fromCharCode(66))!.addEventListener("click", ()=>testLettre(String.fromCharCode(66)));
+document.getElementById(String.fromCharCode(67))!.addEventListener("click", ()=>testLettre(String.fromCharCode(67)));
+document.getElementById(String.fromCharCode(68))!.addEventListener("click", ()=>testLettre(String.fromCharCode(68)));
+document.getElementById(String.fromCharCode(69))!.addEventListener("click", ()=>testLettre(String.fromCharCode(69)));
+document.getElementById(String.fromCharCode(70))!.addEventListener("click", ()=>testLettre(String.fromCharCode(70)));
+document.getElementById(String.fromCharCode(71))!.addEventListener("click", ()=>testLettre(String.fromCharCode(71)));
+document.getElementById(String.fromCharCode(72))!.addEventListener("click", ()=>testLettre(String.fromCharCode(72)));
+document.getElementById(String.fromCharCode(73))!.addEventListener("click", ()=>testLettre(String.fromCharCode(73)));
+document.getElementById(String.fromCharCode(74))!.addEventListener("click", ()=>testLettre(String.fromCharCode(74)));
+document.getElementById(String.fromCharCode(75))!.addEventListener("click", ()=>testLettre(String.fromCharCode(75)));
+document.getElementById(String.fromCharCode(76))!.addEventListener("click", ()=>testLettre(String.fromCharCode(76)));
+document.getElementById(String.fromCharCode(77))!.addEventListener("click", ()=>testLettre(String.fromCharCode(77)));
+document.getElementById(String.fromCharCode(78))!.addEventListener("click", ()=>testLettre(String.fromCharCode(78)));
+document.getElementById(String.fromCharCode(79))!.addEventListener("click", ()=>testLettre(String.fromCharCode(79)));
+document.getElementById(String.fromCharCode(80))!.addEventListener("click", ()=>testLettre(String.fromCharCode(80)));
+document.getElementById(String.fromCharCode(81))!.addEventListener("click", ()=>testLettre(String.fromCharCode(81)));
+document.getElementById(String.fromCharCode(82))!.addEventListener("click", ()=>testLettre(String.fromCharCode(82)));
+document.getElementById(String.fromCharCode(83))!.addEventListener("click", ()=>testLettre(String.fromCharCode(83)));
+document.getElementById(String.fromCharCode(84))!.addEventListener("click", ()=>testLettre(String.fromCharCode(84)));
+document.getElementById(String.fromCharCode(85))!.addEventListener("click", ()=>testLettre(String.fromCharCode(85)));
+document.getElementById(String.fromCharCode(86))!.addEventListener("click", ()=>testLettre(String.fromCharCode(86)));
+document.getElementById(String.fromCharCode(87))!.addEventListener("click", ()=>testLettre(String.fromCharCode(87)));
+document.getElementById(String.fromCharCode(88))!.addEventListener("click", ()=>testLettre(String.fromCharCode(88)));
+document.getElementById(String.fromCharCode(89))!.addEventListener("click", ()=>testLettre(String.fromCharCode(89)));
+document.getElementById(String.fromCharCode(90))!.addEventListener("click", ()=>testLettre(String.fromCharCode(90)));
+
+
+
+
+
+//fonction pour initialiser le jeu
+function newGame(){
+    console.log("in new gamme");
+    const chiffre = Math.floor(Math.random()*self.dico.length);
+    self.motadecouvrir = self.dico[chiffre];
+    console.log(self.motadecouvrir);
+    for(let i=0; i<self.motadecouvrir.length ; i++){
+        self.currentmot.push("_");
+        self.currentmotjoli.push((" _"));
+    }
+    console.log(self.currentmot.join(""));
+    document.getElementById("motad")!.textContent = self.currentmotjoli.join("");
+    document.getElementById("pendu-text")!.textContent = "Find the word before the sheep becomes nude";
+  }
+
+  //tester les entrées clavier
+  function testLettreClavier(l:string, evt:Event){
+    if(!self.enjeu){
+      return 
+    }
+      let lettre = false;
+      for(let i=0; i<26; i++){
+          if(String.fromCharCode(97+i)==l){
+              lettre = true;
+          }
+      }
+      if(lettre){
+          testLettre(l);
+      }
+      //si le caractère n'est pas une lettre
+      else{
+          alert("Veuillez entrer une lettre");
+          evt.stopImmediatePropagation();
+      }
+  }
+
+
+
+  //fonction qui test les lettres
+  function testLettre(lettre:string){  
+      if(!self.enjeu){
+        return 
+      }  
+      const value = lettre.toUpperCase();
+      //si la lettre n'est pas dans le mot 
+      if(self.motadecouvrir.includes(value)==false){
+          self.nberreurs+=1;
+          
+          if(self.nberreurs>=self.limiteerreurs){
+              document.getElementById("pendu-text")!.textContent = "You lost, try again "; 
+              document.getElementById(value)!.style.background= "rgb(100, 34, 66)";
+              self.enjeu=false; 
+          }
+          else{
+              document.getElementById(value)!.style.background = "rgb(100, 34, 66)";   
+              document.getElementById("pendu-text")!.textContent = "Il vous reste "+(10-self.nberreurs)+" tentatives";
+          }
+
+      }
+      //si la lettre est dans le mot 
+      else{
+          let nbtirets = 0;
+          document.getElementById(value)!.style.background="rgb(255, 131, 173)";
+          for(let i=0; i<self.motadecouvrir.length; i++){
+              if(value==self.motadecouvrir[i]){
+                  self.currentmot[i] = value;
+                  self.currentmotjoli[i] = value;
+              }
+              if(self.currentmot[i]=="_"){
+                  nbtirets+=1;
+              }
+          }
+          document.getElementById("motad")!.innerText = self.currentmotjoli.join(""); 
+          if(nbtirets==0){
+            document.getElementById("pendu-text")!.textContent = "You just won 3 carrots to feed the sheeps ";
+            self.enjeu = false;
+            self.cptCarotte+=1;
+          }
+      }
+      
+      updateImage(); 
+  }
+
+
+  //fonction pour update l'image 
+  function updateImage(){
+      document.getElementById("img")!.setAttribute('src','./pendu/mouton'+self.nberreurs+'.png');
+  } 
+
+
+
+  function refresh(){
+          //reinitialiser les variables du jeu:
+          self.nberreurs = 1;
+          self.currentmot = [];
+          self.currentmotjoli = [];
+          self.motadecouvrir = "";
+          self.enjeu = true;
+
+          //reinitialiser les lettres:
+          for(let i=0; i<26; i++){
+            document.getElementById((String.fromCharCode(65+i).toUpperCase()))!.style.background = "rgb(197, 34, 66)";
+          }
+          //reinitialiser le dessin
+          updateImage();
+
+          //cacher les modales
+          //document.getElementById("modal-gagner")!.style.display = "none";
+          //document.getElementById("modal-perdre")!.style.display = "none";
+          document.getElementById("pendu-text")!.textContent = "Il vous reste "+(10-self.nberreurs)+" tentatives";
+          newGame();
+
+      
+  }
+
+  
+  window.addEventListener('keydown', function (e) {
+      testLettreClavier(e.key, e)
+    }, false);
+
+    
   }
 }
+
 
 class Mouton{
   public timer : int;

@@ -85,86 +85,133 @@
          </div>
      </div>
  </div>
- <div class="modal-wrapper-outfit">
+<div class="modal-wrapper-outfit">
      <div class="modal-outfit">
          <div class="modal-close-outfit">X</div>
          <div class="modal-content-outfit">
 
             <h2 id="titre-cyo">Choose your outfit !</h2>
             <div id="current-outfit"><img id="imgoutfit" src="./image/outfit/initial.png"></div>
-            <div id="choose">
+                <div id="choose">
+                    
+                    <div id="out-zero" class="initial">
+                        <img class="outimg" src="./image/horizontal/initial.png">
+                        <button class="wto" id="./image/horizontal/initial.png">Wear</button>
+                    </div>
+                    
+
                 
-                <div id="out-zero" class="initial">
-                    <img class="outimg" src="./image/horizontal/initial.png">
-                    <button class="wto" id="./image/horizontal/initial.png">Wear</button>
-                </div>
+                    <div id="out-un" class="manche notOwned">
+                        <img class="outimg" src="./image/horizontal/manche.png">
+                        <button class="wto" id="./image/horizontal/manche.png">Wear</button>
+                    </div>
                 
 
-               
-                <div id="out-un" class="manche notOwned">
-                    <img class="outimg" src="./image/horizontal/manche.png">
-                    <button class="wto" id="./image/horizontal/manche.png">Wear</button>
-                </div>
-               
+                    <div id="out-deux" class="fleur_blanc notOwned">
+                        <img class="outimg " src="./image/horizontal/fleur_blanc.png">
+                        <button class="wto" id="./image/horizontal/fleur_blanc.png">Wear</button>
+                    </div>
 
-                <div id="out-deux" class="fleur_blanc notOwned">
-                    <img class="outimg " src="./image/horizontal/fleur_blanc.png">
-                    <button class="wto" id="./image/horizontal/fleur_blanc.png">Wear</button>
-                </div>
+                    <div id="out-trois" class="fleur_bleu notOwned">
+                        <img class="outimg" src="./image/horizontal/fleur_bleu.png">
+                        <button class="wto" id="./image/horizontal/fleur_bleu.png">Wear</button>
+                    </div>
 
-                <div id="out-trois" class="fleur_bleu notOwned">
-                    <img class="outimg" src="./image/horizontal/fleur_bleu.png">
-                    <button class="wto" id="./image/horizontal/fleur_bleu.png">Wear</button>
-                </div>
+                    <div id="out-quatre" class="long_blanc notOwned">
+                        <img class="outimg" src="./image/horizontal/long_blanc.png">
+                        <button class="wto" id="./image/horizontal/long_blanc.png">Wear</button>
+                    </div>
 
-                <div id="out-quatre" class="long_blanc notOwned">
-                    <img class="outimg" src="./image/horizontal/long_blanc.png">
-                    <button class="wto" id="./image/horizontal/long_blanc.png">Wear</button>
-                </div>
+                    <div id="out-cinq" class="long_marron notOwned">
+                        <img class="outimg" src="./image/horizontal/long_marron.png">
+                        <button class="wto" id="./image/horizontal/long_marron.png">Wear</button>
+                    </div>
 
-                <div id="out-cinq" class="long_marron notOwned">
-                    <img class="outimg" src="./image/horizontal/long_marron.png">
-                    <button class="wto" id="./image/horizontal/long_marron.png">Wear</button>
-                </div>
+                    <div id="out-six" class="manche_bob notOwned">
+                        <img class="outimg" src="./image/horizontal/manche_bob.png">
+                        <button class="wto" id="./image/horizontal/manche_bob.png">Wear</button>
+                    </div>
+                    <div id="out-sept" class="fleur_blanc_bob notOwned">
+                        <img class="outimg" src="./image/horizontal/fleur_blanc_bob.png">
+                        <button class="wto" id="./image/horizontal/fleur_blanc_bob.png">Wear</button>
+                    </div>
+                    <div id="out-huit" class="fleur_bleu_bob notOwned">
+                        <img class="outimg" src="./image/horizontal/fleur_bleu_bob.png">
+                        <button class="wto" id="./image/horizontal/fleur_bleu_bob.png">Wear</button>
+                    </div>
+                    <div id="out-neuf" class="long_blanc_bob notOwned">
+                        <img class="outimg" src="./image/horizontal/long_blanc_bob.png">
+                        <button class="wto" id="./image/horizontal/long_blanc_bob.png">Wear</button>
+                    </div>
+                    <div id="out-dix" class="long_marron_bob notOwned">
+                        <img class="outimg" src="./image/horizontal/long_marron_bob.png">
+                        <button class="wto" id="./image/horizontal/long_marron_bob.png">Wear</button>
+                    </div>
 
-                <div id="out-six" class="manche_bob notOwned">
-                    <img class="outimg" src="./image/horizontal/manche_bob.png">
-                    <button class="wto" id="./image/horizontal/manche_bob.png">Wear</button>
+                    <div id="out-onze" class="bob notOwned">
+                        <img class="outimg" src="./image/horizontal/initial_bob.png">
+                        <button class="wto" id="./image/horizontal/initial_bob.png">Wear</button>
+                    </div>
+                    
                 </div>
-                <div id="out-sept" class="fleur_blanc_bob notOwned">
-                    <img class="outimg" src="./image/horizontal/fleur_blanc_bob.png">
-                    <button class="wto" id="./image/horizontal/fleur_blanc_bob.png">Wear</button>
-                </div>
-                <div id="out-huit" class="fleur_bleu_bob notOwned">
-                    <img class="outimg" src="./image/horizontal/fleur_bleu_bob.png">
-                    <button class="wto" id="./image/horizontal/fleur_bleu_bob.png">Wear</button>
-                </div>
-                <div id="out-neuf" class="long_blanc_bob notOwned">
-                    <img class="outimg" src="./image/horizontal/long_blanc_bob.png">
-                    <button class="wto" id="./image/horizontal/long_blanc_bob.png">Wear</button>
-                </div>
-                <div id="out-dix" class="long_marron_bob notOwned">
-                    <img class="outimg" src="./image/horizontal/long_marron_bob.png">
-                    <button class="wto" id="./image/horizontal/long_marron_bob.png">Wear</button>
-                </div>
-
-                <div id="out-onze" class="bob notOwned">
-                    <img class="outimg" src="./image/horizontal/initial_bob.png">
-                    <button class="wto" id="./image/horizontal/initial_bob.png">Wear</button>
-                </div>
-                
             </div>
         </div>
     </div>
-</div>
+
+
     <div id="modal-wrapper-pendu">
-        <div id="modal-pendu">
-            <div id="modal-close">X</div>
-            <div id="modal-content-pendu">
-                <h2>Let's play the pendu</h2>
-            </div>
+    <div id="modal-pendu">
+      <div id = "modal-close-pendu">X</div>
+        <div id="modal-content-pendu">
+                <h1 id="pendu-titre">Let's play the Pendu game</h1>
+                <button id="pendu-reset">Reset</button>
+                <div id="gauche">
+                   <img id="img" title="titre" src="./mouton1.png">
+                </div>
+              
+                <div id="centre">
+                    <div id="motad"></div>
+                </div>
+              
+                <div id="droite">
+                    <div class="grille-lettre">
+                      <button class="lettre" id="A">A</button>
+                      <button class="lettre" id="Z">Z</button>
+                      <button class="lettre" id="E">E</button>
+                      <button class="lettre" id="R">R</button>
+                      <button class="lettre" id="T">T</button>
+                      <button class="lettre" id="Y">Y</button> 
+                      <button class="lettre" id="U">U</button>  
+                      <button class="lettre" id="I">I</button> 
+                      <button class="lettre" id="O">O</button>
+                      <button class="lettre" id="P">P</button>
+                      <button class="lettre" id="Q">Q</button>
+                      <button class="lettre" id="S">S</button>
+                      <button class="lettre" id="D">D</button>
+                      <button class="lettre" id="F">F</button>
+                      <button class="lettre" id="G">G</button>
+                      <button class="lettre" id="H">H</button>
+                      <button class="lettre" id="J">J</button>
+                      <button class="lettre" id="K">K</button>
+                      <button class="lettre" id="L">L</button>
+                      <button class="lettre" id="M">M</button> 
+                      <button class="lettre" id="W">W</button>
+                      <button class="lettre" id="X">X</button>
+                      <button class="lettre" id="C">C</button> 
+                      <button class="lettre" id="V">V</button>
+                      <button class="lettre" id="B">B</button>
+                      <button class="lettre" id="N">N</button>
+                    </div>
+                  </div>
+              <div id='pendu-text'>blabla</div>
+                
         </div>
     </div>
+  </div>
+
+
+
+
 
 
 
@@ -195,8 +242,7 @@ canvas {
   height:100% ;
 }
 
-
-  #fashion{
+#fashion{
     background: rgba(216, 93, 93, 0);
     position: fixed;
     bottom: 0%;
@@ -244,6 +290,7 @@ canvas {
 .notOwned img{
     filter: opacity(30%);
 }
+
 .modal {
   text-align: center;
   max-width: 800px;
@@ -623,6 +670,222 @@ button:focus-visible{
   width: 20px;
   border-radius: 5px;
 }
+
+/*   Pendu   */
+#modal-wrapper-pendu{
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,0.7);
+    display:none;
+}
+
+#modal-pendu{
+    width:90%;
+    height: 90%;
+    border-radius: 5px;
+    background: rgb(183, 194, 207);
+    position: relative;
+    padding: 20px;
+    margin: auto;
+    text-align: center;
+}
+
+#modal-content-pendu{
+    width:95%; 
+    background-color:rgb(183, 194, 207); 
+    display:grid;
+    grid-template-columns: 3fr 5fr ;
+    grid-template-rows:2fr 4fr 5fr 1fr;
+    grid-row-gap: 50px;
+    grid-column-gap: 100px;
+    margin-top: 0px;
+    max-height: 100%;
+    margin:auto;
+}
+
+#pendu-reset{
+    grid-row: 1;
+    grid-column: 2;
+    width: 50px;
+    height: 30px;
+    margin-right: 10px;
+    margin: auto;
+}
+
+#pendu-text{
+    grid-column: 2;
+    grid-row: 4;
+    font-size: 30px;
+    margin:auto;
+    color:rgb(71, 20, 24);
+}
+
+h1{
+    padding:auto;
+    margin : auto;
+    width: 500px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(71, 20, 24);
+    grid-row: 1;
+    grid-column: 1/3;
+    
+}
+
+#img{
+    width:450px;
+}
+
+#pendu-titre{
+    grid-row: 1;
+    grid-column: 1/3;
+}
+
+#motad{
+    font-size: 100px;
+}
+
+
+#gauche{
+    grid-column: 1;
+    grid-row: 2/4;
+    margin:auto;
+}
+
+#droite{
+    grid-column: 2;
+    grid-row: 3;
+    margin:auto;
+    
+}
+
+#centre{
+    display :grid;
+    grid-column: 2;
+    grid-row: 2;
+    margin:auto;
+}
+
+#motad{
+    margin: auto;
+    color:rgb(197, 34, 66);
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 50px;
+
+}
+
+
+.grille-lettre{
+    display: grid;
+    grid-template-rows: repeat(3, 50px);
+    grid-template-columns: repeat(10, 50px);
+    gap:5px;
+    margin-right:auto;
+    width:100%;
+    margin-bottom: 20px;
+}
+
+#A{
+    grid-row: 1;
+    grid-column: 1;
+}
+
+#W{
+    grid-column: 3;
+    grid-row: 3;
+}
+
+#X{
+    grid-column: 4;
+    grid-row: 3;
+}
+
+#C{
+    grid-column: 5;
+    grid-row: 3;
+}
+
+#V{
+    grid-column: 6;
+    grid-row: 3;
+}
+
+#B{
+    grid-column: 7;
+    grid-row: 3;
+}
+
+#N{
+    grid-column: 8;
+    grid-row: 3;
+}
+
+
+
+.lettre{
+    width: 100%;
+    height: 100%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size:20px;
+    background-color: rgb(197, 34, 66);
+    color: white;
+}
+
+
+.lettre:hover {
+    background-color: rgb(150, 34, 66);
+    box-shadow: 4px 4px 4px rgba(1,1,1,0.5);
+    transform: translate(-4px,-4px);
+}
+
+.lettre:focus-visible{
+    outline-offset: 1px;
+}
+
+
+
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 20; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.5); 
+}
+
+.modal-content {
+    display:grid;
+    text-align: center;
+    margin: auto;
+    border-radius: 20px;
+    position: relative;
+    background-color: #1D3557;
+    margin-top: 150px; 
+    padding: 20px;
+    border: 1px solid #1D3557;
+    width: 60%; 
+    height: 40%;
+}
+
+.rejouer{
+    width:80px;
+    height: 30px;
+    margin:auto;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.text-modal{
+    
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin:auto;
+    color:#F1FAEE;
+    font-size:50px;
+    
+}
+
+
+
 
 
 </style>
