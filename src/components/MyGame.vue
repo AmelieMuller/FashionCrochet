@@ -162,9 +162,10 @@
     <div id="modal-wrapper-pendu">
     <div id="modal-pendu">
       <div id = "modal-close-pendu">X</div>
+      <button id="pendu-reset">Reset</button>
         <div id="modal-content-pendu">
                 <h1 id="pendu-titre">Let's play the Pendu game</h1>
-                <button id="pendu-reset">Reset</button>
+                
                 <div id="gauche">
                    <img id="img" title="titre" src="./mouton1.png">
                 </div>
@@ -637,7 +638,7 @@ button:focus-visible{
 /* Pour le pendu */
 
 #modal-wrapper-pendu{
-  background: rgba(0, 0, 0, 0.508);
+  background: rgba(0, 0, 0, 0.608);
   position: fixed;
   top: 0;
   left: 0;
@@ -647,18 +648,6 @@ button:focus-visible{
 
 }
 
-#modal-pendu{
-  text-align: center;
-  max-width: 80%;
-  width: 100%;
-  background: rgb(183, 194, 207);
-  padding: 20px;
-  margin: auto;
-  margin-top: 20px;
-  height: 80%;
-  border-radius: 5px;
-  position: relative;
-}
 
 #modal-close-pendu {
   color: rgb(197, 34, 66);
@@ -671,14 +660,6 @@ button:focus-visible{
   border-radius: 5px;
 }
 
-/*   Pendu   */
-#modal-wrapper-pendu{
-    width:100%;
-    height:100%;
-    background-color:rgba(0,0,0,0.7);
-    display:none;
-}
-
 #modal-pendu{
     width:90%;
     height: 90%;
@@ -686,8 +667,18 @@ button:focus-visible{
     background: rgb(183, 194, 207);
     position: relative;
     padding: 20px;
+    margin-top:40px;
     margin: auto;
     text-align: center;
+}
+
+#pendu-reset{
+    width:80px;
+    height:30px;
+    position: absolute;
+    top: 80px;
+    right: 80px;
+    font-size:20px;
 }
 
 #modal-content-pendu{
@@ -703,14 +694,7 @@ button:focus-visible{
     margin:auto;
 }
 
-#pendu-reset{
-    grid-row: 1;
-    grid-column: 2;
-    width: 50px;
-    height: 30px;
-    margin-right: 10px;
-    margin: auto;
-}
+
 
 #pendu-text{
     grid-column: 2;
@@ -853,39 +837,6 @@ h1{
     height: 100%; 
     background-color: rgba(0,0,0,0.5); 
 }
-
-.modal-content {
-    display:grid;
-    text-align: center;
-    margin: auto;
-    border-radius: 20px;
-    position: relative;
-    background-color: #1D3557;
-    margin-top: 150px; 
-    padding: 20px;
-    border: 1px solid #1D3557;
-    width: 60%; 
-    height: 40%;
-}
-
-.rejouer{
-    width:80px;
-    height: 30px;
-    margin:auto;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.text-modal{
-    
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin:auto;
-    color:#F1FAEE;
-    font-size:50px;
-    
-}
-
-
-
 
 
 </style>
